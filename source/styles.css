@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: "Open Sans", Helvetica, sans-serif;
+}
+
+ul,
+li {
+  list-style-type: none;
+}
+
+.log-in-ui {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Center vertically */
+;
+}
+
+.log-in-ui ul.elements {
+  text-align: center;
+}
+
+.title-cont h1 {
+  margin-bottom: 20px;
+  padding-bottom: 20%;
+}
+
+.auth-cont {
+  margin-bottom: 20px;
+  background-color: #A0A0A0;
+  padding: 4% 0;
+  border-radius: 10px;
+}
+
+.credentials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.credentials h3 {
+    font-size: medium;
+}
+
+.form-input form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-input input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 250px;
+  font-size: 16px;
+}
+
+.submit-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #e77500;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+.CAS,
+.alternate {
+  margin-top: 15px;
+}
+
+.alt-options li {
+  margin: 10px 0;
+}
+
+.alt-options h2 {
+  font-size: 18px;
+}
