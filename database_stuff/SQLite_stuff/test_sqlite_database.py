@@ -1,9 +1,15 @@
 #!/usr/bin/env python
 
+#-----------------------------------------------------------------------
+# test_db.py
+# Author: Jeremy Michoma
+#-----------------------------------------------------------------------
 # Description: Test File for SQLite database implemented in 
 # manage_sqlite_database.py
 
 import sqlite3
+
+#---------------------------------------------------------------------
 
 # checks what happens if has_image == Y then question_image is NULL
 # Expected result : IntegrityError
@@ -40,6 +46,8 @@ def test_adding_invalid_question_1():
     # Close the connection
     conn.close()
 
+#-----------------------------------------------------------------------
+    
 # checks what happens if has_image == N then question_image is NOT NULL
 # Expected result : IntegrityError
 def test_adding_invalid_question_2():
