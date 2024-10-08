@@ -366,6 +366,62 @@ def add_question_7b_f14_to_sqlite_database():
     # Close the connection
     conn.close()
 
+def get_question_details(question_id):
+    # Connect to the SQLite database
+    conn = sqlite3.connect('tigertrain.sqlite')
+    cursor = conn.cursor()
+    
+    # SQL query to get the question details for the given question_id
+    query = '''
+    SELECT 
+        question_overviews.question_id, 
+        question_overviews.type, 
+        question_overviews.topic_area,
+        question_details.question_points,
+        question_details.question_text,
+        question_details.has_image,
+        question_details.question_image,
+        question_details.question_solution
+    FROM question_overviews, question_details 
+    WHERE question_overviews.question_id = question_details.question_id
+    AND question_overviews.question_id = ?
+    '''
+    
+    # Execute the query and fetch the result
+    cursor.execute(query, (question_id,))
+    result = cursor.fetchone()
+    
+    # Close the connection
+    conn.close()
+    
+    # If no result is found, return None
+    if result is None:
+        return None
+    
+    # Return the result as a tuple
+    return result
+
+def get_question_type(question_id):
+    return get_question_details(question_id)[1]
+
+def get_topic_area(question_id):
+    return get_question_details(question_id)[2]
+
+def get_question_points(question_id):
+    return get_question_details(question_id)[3]
+
+def get_question_text(question_id):
+    return get_question_details(question_id)[4]
+
+def get_question_has_image(question_id):
+    return get_question_details(question_id)[5]
+
+def get_question_image(question_id):
+    return get_question_details(question_id)[6]
+
+def get_question_solution(question_id):
+    return get_question_details(question_id)[7]
+
 def main():
     create_sqlite_database()
     print_question_overviews_table()
@@ -380,7 +436,14 @@ def main():
     add_question_7b_f14_to_sqlite_database()
     print_question_overviews_table()
     print_question_details_table()
-    
+    print(get_question_details(20))
+    print(get_question_type(20))
+    print(get_topic_area(20))
+    print(get_question_points(20))
+    print(get_question_text(20))
+    print(get_question_has_image(20))
+    print(get_question_image(20))
+    print(get_question_solution(20))
 
 if __name__ == '__main__':
     main()
