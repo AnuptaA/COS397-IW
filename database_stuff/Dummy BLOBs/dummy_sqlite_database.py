@@ -100,7 +100,7 @@ def main():
     # create_dummy_database()
     print_dummy_table()
     # add_question_to_dummy_database(1, '/Users/Jeremy/Desktop/F2024 Final Course Schedule.png')
-    retrieve_image_from_dummy_database(1, '/Users/anupta/Desktop/test3.jpeg')
+    retrieve_image_from_dummy_database(1, '/Users/anupta/Desktop/JSchedule.png')
     # print_dummy_table()
     
 if __name__ == '__main__':
