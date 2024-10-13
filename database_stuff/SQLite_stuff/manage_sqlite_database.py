@@ -93,8 +93,12 @@ def print_question_details_table():
 
     if rows:
         for row in rows:
+            # Since question_image is a BLOB, we will show its size instead of raw data
+            question_image_size = len(row[4]) if row[4] else 0
+
             # Use textwrap.fill to wrap text if necessary (e.g., long topic areas)
             formatted_row = [str(item) for item in row]
+            formatted_row[4] = f"Image Size: {question_image_size} bytes"
             print(" | ".join(formatted_row))
     else:
         print("No data in question_details table.")
@@ -366,6 +370,45 @@ def add_question_7b_f14_to_sqlite_database():
     # Close the connection
     conn.close()
 
+def add_question_2_s24_to_sqlite_database():
+    # Connect to the SQLite database
+    conn = sqlite3.connect('tigertrain.sqlite')
+    cursor = conn.cursor()
+    
+    # Insert data into question_overviews table for questions 26 to 28
+    question_overviews_data = [
+        (26, "Traversals", "Graphs and Digraphs II"),
+        (27, "Traversals", "Graphs and Digraphs II"),
+        (28, "Traversals", "Graphs and Digraphs II")
+    ]
+    
+    cursor.executemany('''
+        INSERT INTO question_overviews (question_id, type, topic_area) 
+        VALUES (?, ?, ?)
+    ''', question_overviews_data)
+    
+    # Read the image file as binary data
+    with open('../img/s24_q2.png', 'rb') as file:
+        image_data = file.read()
+    
+    # Insert data into question_details table for questions 26 to 28
+    question_details_data = [
+        (26, 3, "Run depth-first search and breadth-first search on the following digraph, starting from vertex 0. Assume the adjacency lists are in sorted order: for example, when iterating over the edges leaving vertex 4, consider the edge 4->0 before either 4->2, 4->5, 4->6 or 4->8. List the 10 vertices in the order they are removed from the queue during the execution of BFS.", 'Y', image_data, "0,2,6,8,3,5,1,4,7,9"),
+        (27, 3, "Run depth-first search and breadth-first search on the following digraph, starting from vertex 0. Assume the adjacency lists are in sorted order: for example, when iterating over the edges leaving vertex 4, consider the edge 4->0 before either 4->2, 4->5, 4->6 or 4->8. List the 10 vertices in DFS preorder", 'Y', image_data, "0,2,8,3,1,5,9,7,4,6"),
+        (28, 3, "Run depth-first search and breadth-first search on the following digraph, starting from vertex 0. Assume the adjacency lists are in sorted order: for example, when iterating over the edges leaving vertex 4, consider the edge 4->0 before either 4->2, 4->5, 4->6 or 4->8. List the 10 vertices in DFS postorder.", 'Y', image_data, "5,7,9,1,6,4,3,8,2,0")
+    ]
+    
+    cursor.executemany('''
+        INSERT INTO question_details (question_id, question_points, question_text, has_image, question_image, question_solution) 
+        VALUES (?, ?, ?, ?, ?, ?)
+    ''', question_details_data)
+    
+    # Commit the transaction
+    conn.commit()
+    
+    # Close the connection
+    conn.close()
+
 def get_question_details(question_id):
     # Connect to the SQLite database
     conn = sqlite3.connect('tigertrain.sqlite')
@@ -423,27 +466,28 @@ def get_question_solution(question_id):
     return get_question_details(question_id)[7]
 
 def main():
-    create_sqlite_database()
+    # create_sqlite_database()
     print_question_overviews_table()
     print_question_details_table()
 
-    print("After inserting stuff")
-    add_question_7_s24_to_sqlite_database()
-    add_question_12_f17_to_sqlite_database()
-    add_question_10b_s15_to_sqlite_database()
-    add_question_10c_s15_to_sqlite_database()
-    add_question_7a_f14_to_sqlite_database()
-    add_question_7b_f14_to_sqlite_database()
-    print_question_overviews_table()
-    print_question_details_table()
-    print(get_question_details(20))
-    print(get_question_type(20))
-    print(get_topic_area(20))
-    print(get_question_points(20))
-    print(get_question_text(20))
-    print(get_question_has_image(20))
-    print(get_question_image(20))
-    print(get_question_solution(20))
+    # print("After inserting stuff")
+    # add_question_7_s24_to_sqlite_database()
+    # add_question_12_f17_to_sqlite_database()
+    # add_question_10b_s15_to_sqlite_database()
+    # add_question_10c_s15_to_sqlite_database()
+    # add_question_7a_f14_to_sqlite_database()
+    # add_question_7b_f14_to_sqlite_database()
+    # add_question_2_s24_to_sqlite_database()
+    # print_question_overviews_table()
+    # print_question_details_table()
+    # print(get_question_details(20))
+    # print(get_question_type(20))
+    # print(get_topic_area(20))
+    # print(get_question_points(20))
+    # print(get_question_text(20))
+    # print(get_question_has_image(20))
+    # print(get_question_image(20))
+    # print(get_question_solution(20))
 
 if __name__ == '__main__':
     main()
