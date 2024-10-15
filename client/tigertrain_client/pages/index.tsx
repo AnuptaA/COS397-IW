@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import Question from "@/components/Question";
-import Answer from "@/components/Answer";
+import AnswerBox from "@/components/Answer";
 import Timer from "@/components/Timer";
 
 export default function Home() {
@@ -35,7 +35,7 @@ export default function Home() {
             <Question questionText={questionText} questionImg={questionImg} />
             <div className="timer-ans-cont">
               <Timer points={questionPts} />
-              <Answer />
+              {/* <AnswerBox /> */}
             </div>
           </div>
         </div>

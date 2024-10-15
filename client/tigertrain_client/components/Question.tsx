@@ -1,3 +1,8 @@
+/**
+ * @param questionText: corresponding question text fetched from server
+ * @param questionImg: corresponding question image fetched from server
+ */
+
 interface QuestionProps {
   questionText: string;
   questionImg: string;
