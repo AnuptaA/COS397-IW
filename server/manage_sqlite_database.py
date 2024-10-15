@@ -425,7 +425,7 @@ def get_question_details(question_id):
         question_details.has_image,
         question_details.question_image,
         question_details.question_solution
-    FROM question_overviews, question_details 
+    FROM question_overviews, question_details
     WHERE question_overviews.question_id = question_details.question_id
     AND question_overviews.question_id = ?
     '''
@@ -467,8 +467,10 @@ def get_question_solution(question_id):
 
 def main():
     # create_sqlite_database()
-    print_question_overviews_table()
-    print_question_details_table()
+    # print_question_overviews_table()
+    # print_question_details_table()
+    print(get_question_type(26))
+    
 
     # print("After inserting stuff")
     # add_question_7_s24_to_sqlite_database()

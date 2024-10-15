@@ -18,8 +18,7 @@
         <div class="pfp-cont"><img id="pfp" src="../img/draco-pfp.png" /></div>
       </nav>
       <div class="page-ele-cont">
-        <!-- <div class="prog-bar-cont"></div> -->
-        <div class="quest-ans-cont">
+        <div class="quest-ans-timer-cont">
           <div class="quest-box-cont">
             <div class="quest-text-cont">
               <p>
@@ -36,82 +35,34 @@
               <img src="https://placehold.co/900x400" />
             </div>
           </div>
-          <div class="ans-box-cont">
-            <div class="ans-text-cont">
-              <p>
-                Lorem ipsum odor amet, consectetuer adipiscing elit. Enim
-                scelerisque dapibus erat pulvinar augue mollis duis potenti
-                euismod. Etiam aliquet est torquent; cursus dui congue egestas.
-              </p>
+          <div class="timer-ans-cont">
+            <div class="timer-box-cont">
+              <div class="time-cont">
+                <span id="time">00:00:00</span>
+              </div>
+              <div class="time-btns">
+                <button>START</button>
+                <button>RESET</button>
+              </div>
             </div>
-            <div class="ans-input-cont">
-              <ul>
-                <li>
-                  <input
-                    type="checkbox"
-                    id="box1"
-                    name="box1"
-                    value="loremipsum"
-                  />
-                  <label for="box1"> Lorem Ipsum</label>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    id="box2"
-                    name="box2"
-                    value="loremipsum"
-                  />
-                  <label for="box2"> Lorem Ipsum</label>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    id="box3"
-                    name="box3"
-                    value="loremipsum"
-                  />
-                  <label for="box3"> Lorem Ipsum</label>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    id="box4"
-                    name="box4"
-                    value="loremipsum"
-                  />
-                  <label for="box4"> Lorem Ipsum</label>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    id="box5"
-                    name="box5"
-                    value="loremipsum"
-                  />
-                  <label for="box5"> Lorem Ipsum</label>
-                </li>
-              </ul>
-            </div>
-            <div class="submit-btn-cont">
-              <button id="submit-btn">Submit</button>
+            <div class="ans-box-cont">
+              <div class="ans-text-cont">
+                <p>
+                  Enter your answer as a sequence of comma-separated integers.
+                  (ex: 0,3,1,2,5,6,7,4,9,8)
+                </p>
+              </div>
+              <div class="ans-input-cont">
+                <form>
+                  <label for="user-ans">Type here:</label><br />
+                  <input type="text" id="user-ans" name="user-ans" /><br />
+                </form>
+              </div>
+              <div class="submit-btn-cont">
+                <button id="submit-btn">SUBMIT</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="time-box-cont">
-          <ul>
-            <li><button>START</button></li>
-            <li>
-              <div class="time">
-                <span class="hours">00</span>
-                <p>:</p>
-                <span class="minutes">15</span>
-                <p>:</p>
-                <span class="seconds">00</span>
-              </div>
-            </li>
-            <li><button>RESET</button></li>
-          </ul>
         </div>
       </div>
     </main>
