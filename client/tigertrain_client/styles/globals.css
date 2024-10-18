@@ -79,7 +79,7 @@ nav::after {
 .quest-ans-timer-cont {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 0 2.5%;
   height: 65vh;
   margin-top: 11.5vh;
@@ -146,7 +146,7 @@ nav::after {
 }
 
 .time-btns button {
-    margin: 0 1vw;
+  margin: 0 1vw;
 }
 
 .time-cont {
@@ -162,11 +162,19 @@ nav::after {
   height: 60%;
 }
 
-.ans-text-cont p {
+.answer-helper-text {
   font-size: 1.25vw;
   text-indent: 2em;
   margin: 1vw 0;
   flex-shrink: 0;
+}
+
+.support-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    font-size: 1.25vw;
 }
 
 .ans-input-cont {
@@ -186,12 +194,13 @@ nav::after {
   border-radius: 0.5em;
 }
 
-.submit-btn-cont {
+.ans-btn-cont {
   display: flex;
   justify-content: center;
 }
 
 #submit-btn,
+#solution-btn,
 .time-btns button {
   font-size: 1.25em;
   padding: 0.35em 0.75em;
@@ -203,12 +212,15 @@ nav::after {
   transition-duration: 0.2s;
 }
 
-#submit-btn {
+#submit-btn,
+#solution-btn {
+  margin: 0 1vw;
   margin-bottom: 2vw;
 }
 
 .time-btns button:hover,
-#submit-btn:hover {
+#submit-btn:hover,
+#solution-btn:hover {
   background-color: white;
   color: #e77500;
   cursor: pointer;

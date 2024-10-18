@@ -3,7 +3,7 @@ export default function NavBar() {
     <nav>
       <ul>
         <div className="logo-cont">
-          <img id="logo" src="/img/logo.png" alt="logo" />
+          <img id="logo" src="img/misc/logo.png" alt="logo" />
         </div>
         <li id="nav-options">
           <a href="#">DSA Questions</a>
@@ -16,7 +16,7 @@ export default function NavBar() {
         </li>
       </ul>
       <div className="pfp-cont">
-        <img id="pfp" src="/img/draco-pfp.png" alt="Profile" />
+        <img id="pfp" src="img/misc/draco-pfp.png" alt="Profile" />
       </div>
     </nav>
   );

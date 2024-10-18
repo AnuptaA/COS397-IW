@@ -3,7 +3,7 @@ export default function Footer() {
     <footer>
       <img
         className="lockup"
-        src="../img/PU_lockup.png"
+        src="/img/misc/PU_lockup.png"
         alt="Princeton lockup"
       />
       <div className="credits">
