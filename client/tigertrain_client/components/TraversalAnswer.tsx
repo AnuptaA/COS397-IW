@@ -1,7 +1,9 @@
+import router from "next/router";
 import React, { useEffect, useState } from "react";
 import CSS from "csstype";
 
 /**
+ * @param quest_id: corresponding question ID
  * @param isExpired: boolean indicating timer status; true indicates
  *  time has expired, false indicates time remaining
  * @param setIsAnswered: useState function for toggling isAnswered
@@ -10,6 +12,7 @@ import CSS from "csstype";
  */
 
 type AnswerProps = {
+  quest_id: string;
   isExpired: boolean;
   setIsAnswered: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -22,7 +25,7 @@ const incorrStyle: CSS.Properties = {
   fontSize: "1.25vw",
 };
 
-const AnswerBox = ({ isExpired, setIsAnswered }: AnswerProps) => {
+const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
   const [inputData, setInputData] = useState<string>("");
   const [suppStyle, setSuppStyle] = useState<CSS.Properties>(incorrStyle);
   const [suppText, setSuppText] = useState<string>(" ");
@@ -35,13 +38,16 @@ const AnswerBox = ({ isExpired, setIsAnswered }: AnswerProps) => {
     event.preventDefault();
     if (canSubmit) {
       try {
-        const response = await fetch("http://localhost:8080/traversals", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ answer: inputData }),
-        });
+        const response = await fetch(
+          `http://localhost:8080/traversals?quest_id=${quest_id}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ answer: inputData }),
+          }
+        );
         const data = await response.json();
 
         console.log("hello");
@@ -112,7 +118,13 @@ const AnswerBox = ({ isExpired, setIsAnswered }: AnswerProps) => {
         <button form="ans-form" id="submit-btn" type="submit">
           SUBMIT
         </button>
-        <button id="solution-btn">SHOW SOLUTION</button>
+        <button
+          id="solution-btn"
+          type="button"
+          onClick={() => router.push(`/solutions/${quest_id}`)}
+        >
+          SHOW SOLUTION
+        </button>
       </div>
     </div>
   );

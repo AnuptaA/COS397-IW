@@ -13,7 +13,10 @@ export default function Footer() {
         <p>TigerTrain</p>
         <p>© 2024 The Trustees of Princeton University</p>
         <p>
-          <a href="#">Copyright Infringement</a> |<a href="#">Privacy Notice</a>
+          <a href="https://www.princeton.edu/content/copyright-infringement">
+            Copyright Infringement
+          </a>{" "}
+          |<a href="https://www.princeton.edu/privacy-notice">Privacy Notice</a>
         </p>
       </div>
     </footer>

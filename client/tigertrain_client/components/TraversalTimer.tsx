@@ -107,11 +107,11 @@ const Timer = ({ points, isAnswered, setIsExpired }: TimerProps) => {
   }, [points]);
 
   return (
-    <div className="timer-box-cont">
-      <div className="time-cont">
-        <span id="time">{display}</span>
+    <div className="traversal-timer-box-cont">
+      <div className="traversal-time-cont">
+        <span id="traversal-time">{display}</span>
       </div>
-      <div className="time-btns">
+      <div className="traversal-time-btns">
         <button onClick={handleStart}>{startText}</button>
         <button onClick={handleReset}>RESET</button>
       </div>

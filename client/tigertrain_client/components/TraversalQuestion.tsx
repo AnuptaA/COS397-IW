@@ -1,22 +1,20 @@
 import React, { useState } from "react";
+
 /**
- * @param questionId: corresponding question ID
+ * @param quest_id: corresponding question ID
  * @param questionText: corresponding question text fetched from server
- * @param questionImg: corresponding question image fetched from server
+ * @param questionImg: corresponding question image path fetched from
+ * server
  */
 
-interface QuestionProps {
-  questionId: string;
+type QuestionProps = {
+  quest_id: string;
   questionText: string;
   questionImg: string;
-}
+};
 
-const Question: React.FC<QuestionProps> = ({
-  questionId,
-  questionText,
-  questionImg,
-}) => {
-  const displayText = questionId + ". " + questionText;
+const Question = ({ quest_id, questionText, questionImg }: QuestionProps) => {
+  const displayText = quest_id + ". " + questionText;
   return (
     <div className="quest-box-cont">
       <div className="quest-text-cont">

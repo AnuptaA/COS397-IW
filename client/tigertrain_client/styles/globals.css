@@ -1,11 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
+/*--------------------------------------------------------------------*/
+/* Global styling.                                                    */
+/*--------------------------------------------------------------------*/
+
 * {
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif, Arial;
   margin: 0;
   padding: 0;
 }
+
+/*--------------------------------------------------------------------*/
+/* The below is the styling for the navigation bar (component).       */
+/*--------------------------------------------------------------------*/
 
 nav {
   background-color: #333333;
@@ -69,12 +77,21 @@ nav::after {
   background-color: #e77500;
 }
 
+/*--------------------------------------------------------------------*/
+/* The below is the base styling for the traversal template.          */
+/*--------------------------------------------------------------------*/
+
 .page-ele-cont {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 3vh;
 }
+
+/*--------------------------------------------------------------------*/
+/* The below is the styling for the question, timer, and answer boxes */
+/* (components) for the traversal question template.                  */
+/*--------------------------------------------------------------------*/
 
 .quest-ans-timer-cont {
   display: flex;
@@ -87,7 +104,7 @@ nav::after {
 
 .quest-box-cont,
 .ans-box-cont,
-.timer-box-cont {
+.traversal-timer-box-cont {
   height: 100%;
   display: flex;
   align-items: center;
@@ -136,7 +153,7 @@ nav::after {
   height: 100%;
 }
 
-.timer-box-cont {
+.traversal-timer-box-cont {
   width: 100%;
   height: 35%;
   display: flex;
@@ -145,11 +162,11 @@ nav::after {
   align-items: center;
 }
 
-.time-btns button {
+.traversal-time-btns button, .tf-time-icons button {
   margin: 0 1vw;
 }
 
-.time-cont {
+.traversal-time-cont {
   font-size: 5em;
 }
 
@@ -170,11 +187,11 @@ nav::after {
 }
 
 .support-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: red;
-    font-size: 1.25vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  font-size: 1.25vw;
 }
 
 .ans-input-cont {
@@ -200,8 +217,10 @@ nav::after {
 }
 
 #submit-btn,
+#tf-submit-btn,
 #solution-btn,
-.time-btns button {
+.traversal-time-btns button,
+.tf-time-icons button {
   font-size: 1.25em;
   padding: 0.35em 0.75em;
   border-radius: 0.55em;
@@ -213,18 +232,25 @@ nav::after {
 }
 
 #submit-btn,
+#tf-submit-btn,
 #solution-btn {
   margin: 0 1vw;
   margin-bottom: 2vw;
 }
 
-.time-btns button:hover,
+.traversal-time-btns button:hover,
+.tf-time-icons button:hover,
 #submit-btn:hover,
+#tf-submit-btn:hover,
 #solution-btn:hover {
   background-color: white;
   color: #e77500;
   cursor: pointer;
 }
+
+/*--------------------------------------------------------------------*/
+/* The below is the styling for the footer (component).               */
+/*--------------------------------------------------------------------*/
 
 footer::before {
   content: "";
@@ -268,4 +294,176 @@ footer {
 footer p a:hover {
   color: #e77500;
   transition: all 0.3s ease 0s;
+}
+
+/*--------------------------------------------------------------------*/
+/* The below is the base styling for the homepage.                    */
+/*--------------------------------------------------------------------*/
+
+.landing-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 9vh;
+}
+
+.landing-cont h1 {
+  font-size: 4.5em;
+}
+
+.landing-cont h2 {
+  font-weight: 200;
+  margin-top: 1vh;
+  margin-bottom: 2.5vh;
+}
+
+.landing-cont hr {
+  border: 4px solid #e77500;
+  border-radius: 2.5px;
+  width: 90%;
+}
+
+/*--------------------------------------------------------------------*/
+/* The below is the styling for the quesion table (component) used in */
+/* the homepage.                                                      */
+/*--------------------------------------------------------------------*/
+
+#quest-table-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3vh;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10vh;
+}
+
+.table-wrapper {
+  max-height: 55vh;
+  width: 100%;
+  border-radius: 0.5em;
+  overflow-y: auto;
+}
+
+#quest-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1.5em;
+  border-radius: 0.5em;
+}
+
+thead {
+  position: sticky; /* Make the header row sticky */
+  top: 0; /* Stick the header to the top of the scrollable container */
+  z-index: 1; /* Ensure it stays above the table rows when scrolling */
+}
+
+.head-row {
+  background-color: #e77500;
+  color: white;
+}
+
+.head-row th,
+.data-row td {
+  padding: 0.5em 0.95em;
+  text-align: left;
+}
+
+.data-row td {
+  color: #333333;
+}
+
+.data-row:nth-child(even) {
+  background-color: white;
+}
+
+.data-row:nth-child(odd) {
+  background-color: #fdf1e6;
+}
+
+.data-row:hover {
+  background-color: #f3ba80;
+}
+
+/*--------------------------------------------------------------------*/
+/* The below is the styling for the solutions page table.             */
+/*--------------------------------------------------------------------*/
+
+#solution-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10vh;
+  max-width: 75%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.25em;
+}
+
+#solution-cont ul {
+  width: 100%;
+  text-align: left;
+}
+
+#solution-cont ul li {
+  list-style: none;
+  margin: 1em 0;
+}
+
+#sol-quest-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*--------------------------------------------------------------------*/
+/* The below is the base styling for the true/false template.         */
+/*--------------------------------------------------------------------*/
+
+.tf-quest-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10vh;
+  max-width: 75%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.25em;
+}
+
+/*--------------------------------------------------------------------*/
+/* The below is the base styling for the true/false question table    */
+/* (component).                                                       */
+/*--------------------------------------------------------------------*/
+
+#tf-table-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#tf-table-cont table {
+    font-size: 1.25em;
+    width: 100%;
+}
+
+/*--------------------------------------------------------------------*/
+/* The below is the styling for the true/false timer (component).     */
+/*--------------------------------------------------------------------*/
+
+#tf-time {
+    font-size: 1.75em;
+}
+
+.tf-time-icons {
+    display: flex;
+    width: 100%;
+    background-color: #eeeeee;
+    padding: 1em;
+    border: 0.1 solid grey;
+    border-radius: 1px;
 }
