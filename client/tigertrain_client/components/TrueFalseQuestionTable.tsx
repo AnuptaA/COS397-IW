@@ -1,75 +1,87 @@
-import React, { useState, useEffect } from "react";
+import router from "next/router";
+import React, { useEffect, useState } from "react";
 
-const TrueFalseQuestionTable = () => {
-  const [answers, setAnswers] = useState({});
+type Question = {
+  id: string;
+  text: string;
+};
 
-  const questions = [
-    { id: "q1", question: "Can pigs fly??" },
-    { id: "q2", question: "Do I believe that I can touch the sky?" },
-    { id: "q3", question: "Is the Earth flat?" },
-    {
-      id: "q4",
-      question:
-        "Are you the strongest because you're Gojo Satoru? Or are you Gojo Satoru because you're the strongest?",
-    },
-    {
-        id: "q5",
-        question:
-        "What would you do for a Klondike bar?"
-    }
-  ];
+type QuestionProps = {
+  questions: Question[];
+};
 
-  const handleChange = () => {};
+const TrueFalseQuestionTable = ({ questions }: QuestionProps) => {
+  const [answers, setAnswers] = useState<{ [key: string]: string }>({});
+
+  const handleChange = (quest_id: string, value: string) => {
+    setAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [quest_id]: value,
+    }));
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log("Submitted Answers:", answers);
+    // You can handle the answers here, like sending them to an API
+  };
 
   return (
-    <>
+    <form id="tf-form" onSubmit={handleSubmit}>
       <div id="tf-table-cont">
-        {/* <table id="tf-quest-table">
+        <table>
           <thead>
-            <tr className="tf-head-row">
-              <th>Question</th>
-              <th>True/False</th>
+            <tr>
+              <th>True/False Question</th>
+              {/* <th>Answer</th> */}
             </tr>
           </thead>
           <tbody>
             {questions.map((question) => (
-              <tr className="data-row" key={10}>
-                <td>{question.questionText}</td>
-                <td></td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
-        <table>
-          <thead>
-            <tr>
-              <th>Question Statement</th>
-              <th>Answer</th>
-            </tr>
-          </thead>
-          <tbody>
-            {questions.map((item) => (
-              <tr key={item.id}>
+              <tr key={question.id}>
                 <td className="tf-quest">
-                  <span>{item.question}</span>
+                  <span>{question.text}</span>
                 </td>
                 <td className="radio-btns">
-                  <label>
-                    <input type="radio" name={item.id} value="true" />
-                    True
-                  </label>
-                  <label>
-                    <input type="radio" name={item.id} value="false" />
-                    False
-                  </label>
+                  <div className="tf-input">
+                    <label>
+                      <input
+                        type="radio"
+                        name={question.id} // This keeps each question's answers separate
+                        value="true"
+                        checked={answers[question.id] === "true"}
+                        onChange={() => handleChange(question.id, "true")}
+                      />
+                      True
+                    </label>
+                  </div>
+                  <div className="tf-input">
+                    <label>
+                      <input
+                        type="radio"
+                        name={question.id} // This keeps each question's answers separate
+                        value="false"
+                        checked={answers[question.id] === "false"}
+                        onChange={() => handleChange(question.id, "false")}
+                      />
+                      False
+                    </label>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <button id="tf-submit-btn">SUBMIT</button>
       </div>
-    </>
+      <div className="ans-btns-cont">
+        <button id="tf-submit-btn" type="submit">
+          SUBMIT
+        </button>
+        <button id="tf-sol-btn" type="button" onClick={() => router.push(`/solutions/`)}>
+          SHOW SOLUTION
+        </button>
+      </div>
+    </form>
   );
 };
 

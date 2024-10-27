@@ -10,11 +10,14 @@ export default function Solution() {
 
   const [effectiveId, setEffectiveId] = useState<string>("26");
   const [questionText, setQuestionText] = useState<string>("Loading");
+  const [hasImg, setHasImg] = useState<boolean>(false);
   const [questionImg, setQuestionImg] = useState<string>(
     "https://placehold.co/900x400"
   );
   const [questionSol, setQuestionSol] = useState<string>("0,0,0,0,0");
-  const [questionExp, setQuestionExp] = useState<string>("Loading explanation");
+  const [questionExp, setQuestionExp] = useState<string>(
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  );
   const [questtionType, setQuestionType] = useState<string>("traversals");
 
   useEffect(() => {
@@ -24,6 +27,7 @@ export default function Solution() {
         .then((response) => response.json())
         .then((data) => {
           setQuestionText(data.text);
+          setHasImg(data.hasImg);
           setQuestionImg(data.img);
           setQuestionSol(data.solution);
           //   setQuestionExp(data.exp);          // save this for later
@@ -55,11 +59,16 @@ export default function Solution() {
             <li id="sol-sol">
               <strong>Solution</strong>: {questionSol}
             </li>
-            <li id="explanation">{questionExp}</li>
+            <li id="explanation">
+              {questionExp}{" "}
+              <small>
+                Related resources: This is a placeholder for the future.
+              </small>
+            </li>
             <li>
-              <Link
-                href={`/${questtionType.toLowerCase()}/${effectiveId}`}
-              >Back to question</Link>
+              <Link href={`/${questtionType.toLowerCase()}/${effectiveId}`}>
+                Back to question
+              </Link>
             </li>
           </ul>
         </div>

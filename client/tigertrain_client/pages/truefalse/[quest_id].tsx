@@ -5,13 +5,18 @@ import Footer from "@/components/Footer";
 import TrueFalseQuestionTable from "@/components/TrueFalseQuestionTable";
 import Timer from "@/components/TrueFalseTimer";
 
+type Question = {
+    id: string
+    text: string;
+};
+
 export default function TrueFalseQuestion() {
   const router = useRouter();
   const { quest_id } = router.query;
 
   const [effectiveId, setEffectiveId] = useState<string>("26");
-
-  const [questionPts, setQuestionPts] = useState<number>(1);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questionPts, setQuestionPts] = useState<number>(3);
   const [timerStatus, setTimerStatus] = useState<boolean>(false);
   const [questionStatus, setQuestionStatus] = useState<boolean>(false);
 
@@ -23,6 +28,7 @@ export default function TrueFalseQuestion() {
         .then((data) => {
           console.log(data);
           console.log(quest_id);
+          setQuestions(data);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
@@ -38,7 +44,7 @@ export default function TrueFalseQuestion() {
       <main>
         <NavBar />
         <div className="tf-quest-cont">
-          <TrueFalseQuestionTable />
+          <TrueFalseQuestionTable questions={questions}/>
           <Timer
             points={questionPts}
             isAnswered={questionStatus}

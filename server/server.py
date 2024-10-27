@@ -7,6 +7,7 @@
 
 from manage_sqlite_database import *
 import base64
+import math
 import flask
 from flask_cors import CORS
 
@@ -67,6 +68,7 @@ def get_question(quest_id):
     quest_details['pts'] = int(question_pts)
     quest_details['text'] = question_text
     quest_details['solution'] = solution
+    quest_details['has_img'] = True if has_img == 'Y' else False
 
     # Solution: 0,2,6,8,3,5,1,4,7,9
 
@@ -74,6 +76,20 @@ def get_question(quest_id):
     quest_details['img'] = img
 
     return quest_details
+
+#-----------------------------------------------------------------------
+
+def get_tf_question(quest_id):
+    # groups questions by 3
+    start = 3 * math.ceil(quest_id / 3) - 2
+    quest_ids = [start, start + 1, start + 2]
+    tf_question = []
+
+    for id in quest_ids:
+        quest = get_question(id)
+        tf_question.append(quest)
+    
+    return tf_question
 
 #-----------------------------------------------------------------------
 
@@ -131,11 +147,21 @@ def traversals():
 # True/False questions route
 @app.route('/truefalse', methods=['GET', 'POST'])
 def truefalse():
-    quest_id = 1
-    quest_details = get_question(quest_id)
-
     if flask.request.method == 'GET':
-        return flask.jsonify(quest_details)
+        quest_id = flask.request.args.get('quest_id')
+        if quest_id:
+            quest_details = get_tf_question(int(quest_id))
+            return flask.jsonify(quest_details)
+        else:
+            return flask.jsonify({'error': 'Question ID is required'}), 400
+    
+    if flask.request.method == 'POST':
+        data = flask.request.get_json()
+        quest_id = flask.reqeust.args.get('quest_id')
+        if quest_id:
+            quest_details = get_tf_question(quest_id)
+        else:
+            return flask.jsonify({'error': 'quest_id is required'}), 400
     
 #-----------------------------------------------------------------------
 if __name__ == '__main__':
