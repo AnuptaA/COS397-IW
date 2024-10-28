@@ -338,12 +338,12 @@ def add_question_7b_f14_to_sqlite_database():
     # Create a cursor object to execute SQL commands
     cursor = conn.cursor()
 
-    # Insert data into question_overviews table for questions 22 to 25
+    # Insert data into question_overviews table for questions 22 to 24
     question_overviews_data = [
         (22, "TrueFalse", "Minimum Spanning Trees"),
         (23, "TrueFalse", "Minimum Spanning Trees"),
-        (24, "TrueFalse", "Minimum Spanning Trees"),
-        (25, "TrueFalse", "Minimum Spanning Trees")
+        (24, "TrueFalse", "Minimum Spanning Trees")
+        # (25, "TrueFalse", "Minimum Spanning Trees")
     ]
 
     cursor.executemany('''
@@ -351,12 +351,12 @@ def add_question_7b_f14_to_sqlite_database():
         VALUES (?, ?, ?)
     ''', question_overviews_data)
 
-    # Insert data into question_details table for questions 22 to 25
+    # Insert data into question_details table for questions 22 to 24
     question_details_data = [
         (22, 1, "Consider an edge-weighted graph G with distinct and positive edge weights. Assume that G contains at least 3 vertices, has no parallel edges or self loops, and is connected. Any MST must include the lightest edge.", 'N', None, 'T'),
         (23, 1, "Consider an edge-weighted graph G with distinct and positive edge weights. Assume that G contains at least 3 vertices, has no parallel edges or self loops, and is connected. Any MST must include the second lightest edge.", 'N', None, 'T'),
-        (24, 1, "Consider an edge-weighted graph G with distinct and positive edge weights. Assume that G contains at least 3 vertices, has no parallel edges or self loops, and is connected. Any MST must exclude the heaviest edge.", 'N', None, 'F'),
-        (25, 1, "Consider an edge-weighted graph G with distinct and positive edge weights. Assume that G contains at least 3 vertices, has no parallel edges or self loops, and is connected. The MST is unique.", 'N', None, 'T')
+        (24, 1, "Consider an edge-weighted graph G with distinct and positive edge weights. Assume that G contains at least 3 vertices, has no parallel edges or self loops, and is connected. Any MST must exclude the heaviest edge.", 'N', None, 'F')
+        # (25, 1, "Consider an edge-weighted graph G with distinct and positive edge weights. Assume that G contains at least 3 vertices, has no parallel edges or self loops, and is connected. The MST is unique.", 'N', None, 'T')
     ]
 
     cursor.executemany('''
@@ -375,11 +375,11 @@ def add_question_2_s24_to_sqlite_database():
     conn = sqlite3.connect('tigertrain.sqlite')
     cursor = conn.cursor()
     
-    # Insert data into question_overviews table for questions 26 to 28
+    # Insert data into question_overviews table for questions 25 to 27
     question_overviews_data = [
+        (25, "Traversals", "Graphs and Digraphs II"),
         (26, "Traversals", "Graphs and Digraphs II"),
-        (27, "Traversals", "Graphs and Digraphs II"),
-        (28, "Traversals", "Graphs and Digraphs II")
+        (27, "Traversals", "Graphs and Digraphs II")
     ]
     
     cursor.executemany('''
@@ -388,14 +388,14 @@ def add_question_2_s24_to_sqlite_database():
     ''', question_overviews_data)
     
     # Read the image file as binary data
-    with open('../img/s24_q2.png', 'rb') as file:
+    with open('../img/question_img/s24_q2_decoded.png', 'rb') as file:
         image_data = file.read()
     
-    # Insert data into question_details table for questions 26 to 28
+    # Insert data into question_details table for questions 26 to 27
     question_details_data = [
-        (26, 3, "Run depth-first search and breadth-first search on the following digraph, starting from vertex 0. Assume the adjacency lists are in sorted order: for example, when iterating over the edges leaving vertex 4, consider the edge 4->0 before either 4->2, 4->5, 4->6 or 4->8. List the 10 vertices in the order they are removed from the queue during the execution of BFS.", 'Y', image_data, "0,2,6,8,3,5,1,4,7,9"),
-        (27, 3, "Run depth-first search and breadth-first search on the following digraph, starting from vertex 0. Assume the adjacency lists are in sorted order: for example, when iterating over the edges leaving vertex 4, consider the edge 4->0 before either 4->2, 4->5, 4->6 or 4->8. List the 10 vertices in DFS preorder", 'Y', image_data, "0,2,8,3,1,5,9,7,4,6"),
-        (28, 3, "Run depth-first search and breadth-first search on the following digraph, starting from vertex 0. Assume the adjacency lists are in sorted order: for example, when iterating over the edges leaving vertex 4, consider the edge 4->0 before either 4->2, 4->5, 4->6 or 4->8. List the 10 vertices in DFS postorder.", 'Y', image_data, "5,7,9,1,6,4,3,8,2,0")
+        (25, 3, "Run depth-first search and breadth-first search on the following digraph, starting from vertex 0. Assume the adjacency lists are in sorted order: for example, when iterating over the edges leaving vertex 4, consider the edge 4->0 before either 4->2, 4->5, 4->6 or 4->8. List the 10 vertices in the order they are removed from the queue during the execution of BFS.", 'Y', image_data, "0,2,6,8,3,5,1,4,7,9"),
+        (26, 3, "Run depth-first search and breadth-first search on the following digraph, starting from vertex 0. Assume the adjacency lists are in sorted order: for example, when iterating over the edges leaving vertex 4, consider the edge 4->0 before either 4->2, 4->5, 4->6 or 4->8. List the 10 vertices in DFS preorder", 'Y', image_data, "0,2,8,3,1,5,9,7,4,6"),
+        (27, 3, "Run depth-first search and breadth-first search on the following digraph, starting from vertex 0. Assume the adjacency lists are in sorted order: for example, when iterating over the edges leaving vertex 4, consider the edge 4->0 before either 4->2, 4->5, 4->6 or 4->8. List the 10 vertices in DFS postorder.", 'Y', image_data, "5,7,9,1,6,4,3,8,2,0")
     ]
     
     cursor.executemany('''
@@ -465,6 +465,28 @@ def get_question_image(question_id):
 def get_question_solution(question_id):
     return get_question_details(question_id)[7]
 
+def decode_question_image(question_id, file_name):
+    # Connect to the SQLite database
+    conn = sqlite3.connect('tigertrain.sqlite')
+
+    # Create a cursor object to execute SQL commands
+    cursor = conn.cursor()
+
+    cursor.execute('''
+    SELECT question_image FROM question_details WHERE question_id = ?
+    ''', (question_id,))
+    
+    # Fetch the image data
+    image_data = cursor.fetchone()
+    output_path = '../img/question_img/' + file_name
+    
+    if image_data is not None:
+        with open(output_path, 'wb') as image_file:
+            image_file.write(image_data[0])
+        print(f"Image retrieved and saved as {output_path}.")
+    else:
+        print("No image found for the given question_id.")
+
 def delete_question(question_id):
     # Connect to the SQLite database
     conn = sqlite3.connect('tigertrain.sqlite')
@@ -516,6 +538,11 @@ def main():
     # print(get_question_image(20))
     # print(get_question_solution(20))
     # delete_question(25)
+    # decode_question_image(27, 's24_q2_decoded.png')
+    # delete_question(26)
+    # delete_question(27)
+    # delete_question(28)
+    # add_question_2_s24_to_sqlite_database()
 
 if __name__ == '__main__':
     main()
