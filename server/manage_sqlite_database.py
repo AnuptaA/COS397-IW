@@ -543,6 +543,8 @@ def main():
     # delete_question(27)
     # delete_question(28)
     # add_question_2_s24_to_sqlite_database()
+    # for i in range(25, 28):
+    #     decode_question_image(i, get_question_type(i) + '_' + str(i) + '.jpeg')
 
 if __name__ == '__main__':
     main()
