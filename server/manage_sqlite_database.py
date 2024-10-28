@@ -465,11 +465,38 @@ def get_question_image(question_id):
 def get_question_solution(question_id):
     return get_question_details(question_id)[7]
 
+import sqlite3
+
+def delete_question(question_id):
+    # Connect to the SQLite database
+    conn = sqlite3.connect('tigertrain.sqlite')
+    cursor = conn.cursor()
+    
+    # Delete the question from question_details first to maintain referential integrity
+    cursor.execute('''
+        DELETE FROM question_details 
+        WHERE question_id = ?
+    ''', (question_id,))
+    
+    # Delete the question from question_overviews
+    cursor.execute('''
+        DELETE FROM question_overviews 
+        WHERE question_id = ?
+    ''', (question_id,))
+    
+    # Commit the transaction
+    conn.commit()
+    
+    # Close the connection
+    conn.close()
+    print(f"Question with question_id {question_id} has been deleted.")
+
+
 def main():
     # create_sqlite_database()
-    # print_question_overviews_table()
-    # print_question_details_table()
-    print(get_question_type(26))
+    print_question_overviews_table()
+    print_question_details_table()
+    # print(get_question_type(26))
     
 
     # print("After inserting stuff")
@@ -490,6 +517,7 @@ def main():
     # print(get_question_has_image(20))
     # print(get_question_image(20))
     # print(get_question_solution(20))
+    # delete_question(25)
 
 if __name__ == '__main__':
     main()
