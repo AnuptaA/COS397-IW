@@ -1,4 +1,4 @@
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 type Question = {
@@ -11,12 +11,15 @@ type QuestionProps = {
 };
 
 const TrueFalseQuestionTable = ({ questions }: QuestionProps) => {
+  const queryRouter = useRouter();
+  const { quest_id } = queryRouter.query;
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
+  const questType = "truefalse";
 
-  const handleChange = (quest_id: string, value: string) => {
+  const handleChange = (id: string, value: string) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
-      [quest_id]: value,
+      [id]: value,
     }));
   };
 
@@ -40,7 +43,7 @@ const TrueFalseQuestionTable = ({ questions }: QuestionProps) => {
             {questions.map((question) => (
               <tr key={question.id}>
                 <td className="tf-quest">
-                  <span>{question.text}</span>
+                  <span><strong>{question.id}.</strong> {question.text}</span>
                 </td>
                 <td className="radio-btns">
                   <div className="tf-input">
@@ -77,7 +80,11 @@ const TrueFalseQuestionTable = ({ questions }: QuestionProps) => {
         <button id="tf-submit-btn" type="submit">
           SUBMIT
         </button>
-        <button id="tf-sol-btn" type="button" onClick={() => router.push(`/solutions/`)}>
+        <button
+          id="tf-sol-btn"
+          type="button"
+          onClick={() => router.push(`/solutions/${questType}/${quest_id}`)}
+        >
           SHOW SOLUTION
         </button>
       </div>

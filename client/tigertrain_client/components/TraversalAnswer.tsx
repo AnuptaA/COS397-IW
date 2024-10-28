@@ -12,6 +12,7 @@ import CSS from "csstype";
  */
 
 type AnswerProps = {
+  type: string;
   quest_id: string;
   isExpired: boolean;
   setIsAnswered: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,7 +26,12 @@ const incorrStyle: CSS.Properties = {
   fontSize: "1.25vw",
 };
 
-const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
+const AnswerBox = ({
+  type,
+  quest_id,
+  isExpired,
+  setIsAnswered,
+}: AnswerProps) => {
   const [inputData, setInputData] = useState<string>("");
   const [suppStyle, setSuppStyle] = useState<CSS.Properties>(incorrStyle);
   const [suppText, setSuppText] = useState<string>(" ");
@@ -121,7 +127,7 @@ const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
         <button
           id="solution-btn"
           type="button"
-          onClick={() => router.push(`/solutions/${quest_id}`)}
+          onClick={() => router.push(`/solutions/${type}/${quest_id}`)}
         >
           SHOW SOLUTION
         </button>

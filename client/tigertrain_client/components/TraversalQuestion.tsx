@@ -14,11 +14,10 @@ type QuestionProps = {
 };
 
 const Question = ({ quest_id, questionText, questionImg }: QuestionProps) => {
-  const displayText = quest_id + ". " + questionText;
   return (
     <div className="quest-box-cont">
       <div className="quest-text-cont">
-        <p>{displayText}</p>
+        <p> <strong>{quest_id}.</strong> {questionText}</p>
       </div>
       <div className="quest-img-cont">
         <img src={questionImg} alt="Question related" />

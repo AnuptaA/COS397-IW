@@ -51,7 +51,7 @@ def get_question(quest_id):
 
     question_pts = get_question_points(quest_id)
     question_text = get_question_text(quest_id)
-    has_img = get_question_has_image(quest_id)
+    has_img = True if get_question_has_image(quest_id) == 'Y' else False
 
     img = "/img/question_img/s24_q2.png" if has_img else None
     # img = get_question_image(quest_id) if has_img else None
@@ -68,7 +68,7 @@ def get_question(quest_id):
     quest_details['pts'] = int(question_pts)
     quest_details['text'] = question_text
     quest_details['solution'] = solution
-    quest_details['has_img'] = True if has_img == 'Y' else False
+    quest_details['has_img'] = has_img
 
     # Solution: 0,2,6,8,3,5,1,4,7,9
 
@@ -93,6 +93,29 @@ def get_tf_question(quest_id):
 
 #-----------------------------------------------------------------------
 
+def get_tf_solution(quest_id):
+    # groups questions by 3
+    start = 3 * math.ceil(quest_id / 3) - 2
+    quest_ids = [start, start + 1, start + 2]
+    tf_solution = []
+
+    for id in quest_ids:
+        question = {}
+        question['id'] = id
+        question['text'] = get_question_text(id)
+        question['answer'] = get_question_solution(id)
+        if id % 3 == 0:
+            question['exp'] = "Are you the strongest because you're Satoru Gojo? Or are you Satoru Gojo because you're the strongest?"
+        elif id % 3 == 1:
+            question['exp'] = "Hi if you're seeing this I'm (Anupta) eating Hoagie Haven right now"
+        else:
+            question['exp'] = "Why are Chipotle portion sizes so small :("
+        tf_solution.append(question)
+    
+    return tf_solution
+
+#-----------------------------------------------------------------------
+
 # app instance
 app = flask.Flask(__name__)
 CORS(app)
@@ -112,11 +135,24 @@ def index():
 
 #-----------------------------------------------------------------------
 
-# Solutions route
-@app.route('/solutions', methods=['GET'])
-def solutions():
+# Traversal solutions route
+@app.route('/solutions/traversals', methods=['GET'])
+def traversals_solutions():
+
     quest_id = flask.request.args.get('quest_id')
     quest_details = get_question(quest_id)
+
+    return flask.jsonify(quest_details)
+
+#-----------------------------------------------------------------------
+
+# True/False solutions route
+@app.route('/solutions/truefalse', methods=['GET'])
+def truefalse_solutions():
+
+    quest_id = flask.request.args.get('quest_id')
+    quest_details = get_tf_solution(int(quest_id))
+
     return flask.jsonify(quest_details)
 
 #-----------------------------------------------------------------------

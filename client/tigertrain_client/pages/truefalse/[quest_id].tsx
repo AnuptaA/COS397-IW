@@ -19,6 +19,7 @@ export default function TrueFalseQuestion() {
   const [questionPts, setQuestionPts] = useState<number>(3);
   const [timerStatus, setTimerStatus] = useState<boolean>(false);
   const [questionStatus, setQuestionStatus] = useState<boolean>(false);
+  const quest_type = "truefalse"
 
   useEffect(() => {
     if (typeof quest_id === "string") {

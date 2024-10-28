@@ -20,6 +20,7 @@ export default function TraversalQuestion() {
   const [questionPts, setQuestionPts] = useState<number>(1);
   const [timerStatus, setTimerStatus] = useState<boolean>(false);
   const [questionStatus, setQuestionStatus] = useState<boolean>(false);
+  const quest_type = "traversals";
 
   useEffect(() => {
     if (typeof quest_id === "string") {
@@ -58,6 +59,7 @@ export default function TraversalQuestion() {
                 setIsExpired={setTimerStatus}
               />
               <AnswerBox
+                type={quest_type}
                 quest_id={effectiveId}
                 isExpired={timerStatus}
                 setIsAnswered={setQuestionStatus}

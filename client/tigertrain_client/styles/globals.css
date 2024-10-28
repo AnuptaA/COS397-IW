@@ -392,7 +392,7 @@ thead {
 }
 
 /*--------------------------------------------------------------------*/
-/* The below is the styling for the solutions page table.             */
+/* The below is the styling for the traversal solutions page table.   */
 /*--------------------------------------------------------------------*/
 
 #solution-cont {
@@ -511,4 +511,63 @@ thead {
   padding: 1em;
   border: 0.1 solid grey;
   border-radius: 1px;
+}
+
+/*--------------------------------------------------------------------*/
+/* The below is the styling for the true/false solutions page table.  */
+/*--------------------------------------------------------------------*/
+
+/* #solution-cont ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+} */
+
+/* #solution-cont ul ul li {
+    padding: 1vh;
+}
+
+#solution-cont ul ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tf-ans {
+    margin-top: 1vh;
+    text-align: center;
+} */
+
+#tf-solution-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 12.5vh;
+    max-width: 80%;
+    height: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.35em;
+    justify-content: flex-start;
+    position: relative;
+}
+
+#tf-solution-cont ul {
+    flex-grow: 1;
+    width: 100%;
+}
+
+#tf-solution-cont ul li {
+    list-style-type: none;
+}
+
+.tf-ans {
+    margin: 5vh 0;
+    /* text-align: center; */
+}
+
+#tf-back-link {
+    margin-top: auto;
 }
