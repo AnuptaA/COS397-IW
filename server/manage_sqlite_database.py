@@ -465,8 +465,6 @@ def get_question_image(question_id):
 def get_question_solution(question_id):
     return get_question_details(question_id)[7]
 
-import sqlite3
-
 def delete_question(question_id):
     # Connect to the SQLite database
     conn = sqlite3.connect('tigertrain.sqlite')
