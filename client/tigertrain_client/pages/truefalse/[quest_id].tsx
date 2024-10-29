@@ -6,8 +6,8 @@ import TrueFalseQuestionTable from "@/components/TrueFalseQuestionTable";
 import Timer from "@/components/TrueFalseTimer";
 
 type Question = {
-    id: string
-    text: string;
+  id: string;
+  text: string;
 };
 
 export default function TrueFalseQuestion() {
@@ -19,7 +19,7 @@ export default function TrueFalseQuestion() {
   const [questionPts, setQuestionPts] = useState<number>(3);
   const [timerStatus, setTimerStatus] = useState<boolean>(false);
   const [questionStatus, setQuestionStatus] = useState<boolean>(false);
-  const quest_type = "truefalse"
+  const quest_type = "truefalse";
 
   useEffect(() => {
     if (typeof quest_id === "string") {
@@ -45,7 +45,12 @@ export default function TrueFalseQuestion() {
       <main>
         <NavBar />
         <div className="tf-quest-cont">
-          <TrueFalseQuestionTable questions={questions}/>
+          <TrueFalseQuestionTable
+            quest_id={effectiveId}
+            isExpired={timerStatus}
+            setIsAnswered={setQuestionStatus}
+            questions={questions}
+          />
           <Timer
             points={questionPts}
             isAnswered={questionStatus}

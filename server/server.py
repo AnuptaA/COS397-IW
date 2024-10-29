@@ -29,10 +29,59 @@ def handle_traversals_ans(user_seq, correct_seq):
         order.
 
     Returns:
-        correct: Boolean value that represents whether the user answer
+        correct: Integer value that represents whether the user answer
         is correct.
     '''
     return 1 if user_seq == correct_seq else 0
+
+#-----------------------------------------------------------------------
+
+def handle_tf_response(user_arr, correct_arr):
+    '''
+    This function validates and returns correctness for true/false
+    questions.
+
+    Args:
+        user_seq: List of user answers formatted as strings
+        correct_seq: List of correct true/false formatted as strings
+
+    Returns:
+
+    '''
+    response = {}
+
+    if len(user_arr) < len(correct_arr):
+        response['message'] = "Question incomplete :("
+        response['isValid'] = 0
+
+    elif len(user_arr) > len(correct_arr):
+        response['message'] = "There was a server error"
+        response['isValid'] = -1
+
+    else:
+        ctr = 0
+        for i in range(len(correct_arr)):
+            if user_arr[i] != correct_arr[i]:
+                ctr += 1
+
+        if ctr == 0:
+            response['message'] = "Correct answer, good work!"
+            response['isValid'] = 1
+        elif ctr == 1:
+            response['message'] = "1 incorrect answer!"
+            response['isValid'] = 0
+        else:
+            response['message'] = f"{ctr} incorrect answers!"
+            response['isValid'] = 0
+
+    return response
+
+#-----------------------------------------------------------------------
+
+def get_tf_ans_arr(quest_id):
+    tf_solution = get_tf_solution(quest_id)
+    tf_answers = [question['answer'] for question in tf_solution]
+    return tf_answers
 
 #-----------------------------------------------------------------------
 
@@ -127,7 +176,7 @@ CORS(app)
 def index():
     questions = []
 
-    for i in range(1, 29):
+    for i in range(1, 28):
         question = get_question(i)
         questions.append(question)
 
@@ -193,9 +242,11 @@ def truefalse():
     
     if flask.request.method == 'POST':
         data = flask.request.get_json()
-        quest_id = flask.reqeust.args.get('quest_id')
+        quest_id = flask.request.args.get('quest_id')
         if quest_id:
-            quest_details = get_tf_question(quest_id)
+            correct_arr = get_tf_ans_arr(int(quest_id))
+            response = handle_tf_response(data['answer'], correct_arr)
+            return flask.jsonify(response)
         else:
             return flask.jsonify({'error': 'quest_id is required'}), 400
     

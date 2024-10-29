@@ -54,13 +54,8 @@ const AnswerBox = ({
             body: JSON.stringify({ answer: inputData }),
           }
         );
+
         const data = await response.json();
-
-        console.log("hello");
-        console.log(data);
-        console.log(parseInt(data.isValid));
-
-        // set validation from server
         setIsValid(parseInt(data.isValid));
       } catch (error) {
         console.error("Error:", error);
@@ -127,7 +122,14 @@ const AnswerBox = ({
         <button
           id="solution-btn"
           type="button"
-          onClick={() => router.push(`/solutions/${type}/${quest_id}`)}
+          onClick={() => {
+            if (quest_id) {
+                router.push(`/solutions/${type}/${quest_id}`);
+            }
+            else {
+                console.log("Quest ID not available yet.");
+            }
+          }}
         >
           SHOW SOLUTION
         </button>

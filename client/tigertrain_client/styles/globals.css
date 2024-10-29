@@ -429,6 +429,7 @@ thead {
 
 .tf-quest-cont {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   align-items: center;
   margin-top: 10vh;
@@ -450,11 +451,11 @@ thead {
 }
 
 #tf-table-cont {
-  max-width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: auto;
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
 }
 
 #tf-table-cont {
@@ -462,16 +463,16 @@ thead {
 }
 
 #tf-table-cont table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 5vh;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 5vh;
 }
 
 #tf-table-cont th,
 #tf-table-cont td {
-  padding: 0.5em 1.25em;
-  /* border: 1px solid red; */
-  /* vertical-align: middle; */
+    padding: 0.5em 1.25em;
+    /* border: 1px solid red; */
+    /* vertical-align: middle; */
 }
 
 #tf-table-cont tbody {
@@ -481,19 +482,24 @@ thead {
 }
 
 .tf-quest {
-  width: 65%;
+    width: 65%;
 }
 
 .radio-btns {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* border: 1px solid blue; */
-  height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5vh;
+    gap: 1em;
 }
 
 .tf-input {
-  margin-right: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.tf-input label {
+    padding-left: 0.5em;
 }
 
 /*--------------------------------------------------------------------*/
