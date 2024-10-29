@@ -10,18 +10,25 @@ type Question = {
 };
 
 export default function Home() {
-  // Send GET request immediately upon load, set fetched data
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [loading, setLoading] = useState(true); // Add loading state to prevent re-fetching
+
   useEffect(() => {
-    fetch("http://localhost:8080/")
-      .then((response) => response.json())
-      .then((data) => {
-        setQuestions(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+    if (loading) {
+      fetch("http://localhost:8080/")
+        .then((response) => response.json())
+        .then((data) => {
+          setQuestions(data);
+          setLoading(false); // Set loading to false once data is loaded
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
+  }, [loading]); // Only re-fetch if loading is true
+
+  // Log to observe any unexpected re-renders
+  console.log("Component re-rendered");
 
   return (
     <>

@@ -22,7 +22,7 @@ nav {
   justify-content: space-between;
   position: fixed;
   width: 100%;
-  padding: 10px 1%;
+  padding: 1vh 1%;
   top: 0;
   z-index: 999;
 }
@@ -57,7 +57,7 @@ nav ul li {
 nav ul li a {
   color: white;
   text-decoration: none;
-  margin: 0 20px;
+  margin: 0 2vh;
   font-size: 1.25em;
   font-weight: 600;
 }
@@ -72,7 +72,7 @@ nav::after {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 5px;
+  height: 0.5vh;
   width: 100%;
   background-color: #e77500;
 }
@@ -263,7 +263,7 @@ footer::before {
   right: 0;
   background-color: #e77500;
   width: 100%;
-  height: 5px;
+  height: 0.5vh;
 }
 
 footer {
@@ -275,14 +275,14 @@ footer {
   bottom: 0;
   align-content: center;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 1.2vh;
   text-align: right;
   padding: 1.5% 3.5%;
   position: fixed;
 }
 
 .lockup {
-  height: 45px;
+  height: 4.5vh;
   width: auto;
 }
 
@@ -345,7 +345,7 @@ footer p a:hover {
 }
 
 .table-wrapper {
-  max-height: 55vh;
+  max-height: 50vh;
   width: 100%;
   border-radius: 0.5em;
   overflow-y: auto;
@@ -373,6 +373,10 @@ thead {
 .data-row td {
   padding: 0.5em 0.95em;
   text-align: left;
+}
+
+.data-row {
+  height: 5vh; /* Adjust this value as needed */
 }
 
 .data-row td {
@@ -445,61 +449,61 @@ thead {
 /*--------------------------------------------------------------------*/
 
 #tf-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #tf-table-cont {
-    max-width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
 }
 
 #tf-table-cont {
-    font-size: 1.35em;
+  font-size: 1.35em;
 }
 
 #tf-table-cont table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 5vh;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 5vh;
 }
 
 #tf-table-cont th,
 #tf-table-cont td {
-    padding: 0.5em 1.25em;
-    /* border: 1px solid red; */
-    /* vertical-align: middle; */
+  padding: 0.5em 1.25em;
+  /* border: 1px solid red; */
+  /* vertical-align: middle; */
 }
 
 #tf-table-cont tbody {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .tf-quest {
-    width: 65%;
+  width: 65%;
 }
 
 .radio-btns {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 5vh;
-    gap: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5vh;
+  gap: 1em;
 }
 
 .tf-input {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .tf-input label {
-    padding-left: 0.5em;
+  padding-left: 0.5em;
 }
 
 /*--------------------------------------------------------------------*/
@@ -546,34 +550,34 @@ thead {
 } */
 
 #tf-solution-cont {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 12.5vh;
-    max-width: 80%;
-    height: 100%;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1.35em;
-    justify-content: flex-start;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12.5vh;
+  max-width: 80%;
+  height: 100%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.35em;
+  justify-content: flex-start;
+  position: relative;
 }
 
 #tf-solution-cont ul {
-    flex-grow: 1;
-    width: 100%;
+  flex-grow: 1;
+  width: 100%;
 }
 
 #tf-solution-cont ul li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .tf-ans {
-    margin: 5vh 0;
-    /* text-align: center; */
+  margin: 5vh 0;
+  /* text-align: center; */
 }
 
 #tf-back-link {
-    margin-top: auto;
+  margin-top: auto;
 }
