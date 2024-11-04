@@ -29,16 +29,6 @@ const QuestionTable = ({ questions }: QuestionProps) => {
               </tr>
             </thead>
             <tbody>
-              {/* Placeholder code to test scroll (overflow-y: auto) */}
-              {/* {Array.from({ length: 20 }, (_, index) => (
-                <tr className="data-row" key={index}>
-                  <td>
-                    <a href="#">Example ID {index + 1}</a>
-                  </td>
-                  <td>Example Question Type</td>
-                  <td>Example Topic Area</td>
-                </tr>
-              ))} */}
               {questions.map((question) => (
                 <tr className="data-row" key={question.id}>
                   <td>

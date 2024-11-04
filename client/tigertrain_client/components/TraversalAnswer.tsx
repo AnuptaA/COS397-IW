@@ -1,6 +1,7 @@
 import router from "next/router";
 import React, { useEffect, useState } from "react";
-import CSS from "csstype";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 /**
  * @param quest_id: corresponding question ID
@@ -12,53 +13,65 @@ import CSS from "csstype";
  */
 
 type AnswerProps = {
-  type: string;
   quest_id: string;
   isExpired: boolean;
   setIsAnswered: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const incorrStyle: CSS.Properties = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "red",
-  fontSize: "1.25vw",
-};
-
-const AnswerBox = ({
-  type,
-  quest_id,
-  isExpired,
-  setIsAnswered,
-}: AnswerProps) => {
+const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
+  const MySwal = withReactContent(Swal);
   const [inputData, setInputData] = useState<string>("");
-  const [suppStyle, setSuppStyle] = useState<CSS.Properties>(incorrStyle);
-  const [suppText, setSuppText] = useState<string>(" ");
-  const [isValid, setIsValid] = useState<number>(-1);
   const [canSubmit, setCanSubmit] = useState<boolean>(true);
+  const questType = "traversals";
 
   // Function handling form submission, waits asynchronoously and then
-  // sends a POST request
+  // sends a POST request if input is non-empty
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (canSubmit) {
-      try {
-        const response = await fetch(
-          `http://localhost:8080/traversals?quest_id=${quest_id}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ answer: inputData }),
-          }
-        );
+      if (inputData === "") {
+        MySwal.fire({
+          icon: "error",
+          title: "Oops..",
+          text: "Please enter a valid string.",
+        });
+      } else {
+        try {
+          const response = await fetch(
+            `http://localhost:8080/${questType}?quest_id=${quest_id}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ answer: inputData }),
+            }
+          );
 
-        const data = await response.json();
-        setIsValid(parseInt(data.isValid));
-      } catch (error) {
-        console.error("Error:", error);
+          const data = await response.json();
+
+          // Set state based on the response
+          let valid = parseInt(data.isValid);
+
+          // Handle the response directly here
+          if (valid === 1) {
+            MySwal.fire({
+              title: "Correct!",
+              text: "Great work soldier!",
+              icon: "success",
+            });
+            setCanSubmit(false);
+            setIsAnswered(true);
+          } else if (!isExpired && valid === 0) {
+            MySwal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Incorrect, please try again.",
+            });
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
       }
     }
   };
@@ -68,27 +81,18 @@ const AnswerBox = ({
     setInputData(event.target.value);
   };
 
+  // Handle timer expiration
   useEffect(() => {
-    if (isValid === 1) {
-      // Correct answer
-      setSuppText("Correct, great work!");
-      setSuppStyle({ color: "green" });
+    if (isExpired) {
+      MySwal.fire({
+        icon: "error",
+        title: "Time's Up!",
+        text: "Your time has expired :(",
+      });
       setCanSubmit(false);
       setIsAnswered(true);
-    } else if (!isExpired && isValid === 0) {
-      // Incorrect answer, but time remaining
-      setSuppText("Incorrect, try again.");
-      setSuppStyle({ color: "red" });
-    } else if (isExpired) {
-      // Timer expired
-      setSuppText("Your time has expired.");
-      setSuppStyle({ color: "red" });
-      setCanSubmit(false);
-      setIsAnswered(true);
-    } else {
-      setSuppText(" ");
     }
-  }, [isValid, isExpired]);
+  }, [isExpired]);
 
   return (
     <div className="ans-box-cont">
@@ -96,9 +100,6 @@ const AnswerBox = ({
         <p className="answer-helper-text">
           Enter your answer as a sequence of comma-separated integers. (ex:
           0,3,1,2,5,6,7,4,9,8)
-        </p>
-        <p className="support-text" style={suppStyle}>
-          {suppText}
         </p>
       </div>
       <div className="ans-input-cont">
@@ -124,10 +125,9 @@ const AnswerBox = ({
           type="button"
           onClick={() => {
             if (quest_id) {
-                router.push(`/solutions/${type}/${quest_id}`);
-            }
-            else {
-                console.log("Quest ID not available yet.");
+              router.push(`/solutions/${questType}/${quest_id}`);
+            } else {
+              console.log("Quest ID not available yet.");
             }
           }}
         >

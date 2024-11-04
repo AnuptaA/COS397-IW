@@ -5,6 +5,7 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
 export default function Solution() {
+  // Get URL query using dynamic router
   const router = useRouter();
   const { quest_id } = router.query;
 

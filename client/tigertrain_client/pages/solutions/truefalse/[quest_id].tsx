@@ -12,12 +12,12 @@ type Question = {
 };
 
 export default function Solution() {
+  // Get URL query using dynamic router
   const router = useRouter();
   const { quest_id } = router.query;
 
   const [effectiveId, setEffectiveId] = useState<string>("26");
   const [questions, setQuestions] = useState<Question[]>([]);
-
   const questType = "truefalse";
 
   useEffect(() => {
@@ -49,14 +49,18 @@ export default function Solution() {
                   <strong>{question.id}.</strong> {question.text}
                 </p>
                 <p className="tf-ans">
-                  <strong>{question.answer}</strong> - {question.exp} <small>
+                  <strong>{question.answer}</strong> - {question.exp}{" "}
+                  <small>
                     Related resources: This is a placeholder for the future.
                   </small>
                 </p>
               </li>
             ))}
           </ul>
-          <Link id="tf-back-link" href={`/${questType.toLowerCase()}/${effectiveId}`}>
+          <Link
+            id="tf-back-link"
+            href={`/${questType.toLowerCase()}/${effectiveId}`}
+          >
             Back to question
           </Link>
         </div>

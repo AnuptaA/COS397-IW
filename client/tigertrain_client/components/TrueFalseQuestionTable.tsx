@@ -1,6 +1,17 @@
-import router, { useRouter } from "next/router";
+import router from "next/router";
 import React, { useEffect, useState } from "react";
-import CSS from "csstype";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+/**
+ * @param quest_id: corresponding question ID
+ * @param isExpired: boolean indicating timer status; true indicates
+ * time has expired, false indicates time remaining
+ * @param setIsAnswered: useState function for toggling isAnswered
+ * boolean; true indicates answered correctly, flase indicates
+ * unanswered/incorrect
+ * @param questions: array of Question objects
+ */
 
 type Question = {
   id: string;
@@ -14,38 +25,25 @@ type QuestionProps = {
   questions: Question[];
 };
 
-const incorrStyle: CSS.Properties = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "red",
-  fontSize: "1.25vw",
-  marginBottom: "1vw",
-};
-
 const TrueFalseQuestionTable = ({
   quest_id,
   isExpired,
   setIsAnswered,
   questions,
 }: QuestionProps) => {
+  const MySwal = withReactContent(Swal);
   const [answers, setAnswers] = useState(Array(questions.length).fill(""));
-  const [isValid, setIsValid] = useState<number>(-1);
-  const [suppStyle, setSuppStyle] = useState<CSS.Properties>(incorrStyle);
-  const [suppText, setSuppText] = useState<string>(" ");
   const [canSubmit, setCanSubmit] = useState<boolean>(true);
   const questType = "truefalse";
 
+  // Function handling form submission, waits asynchronoously and then
+  // sends a POST request
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (canSubmit) {
-      if (!quest_id || !canSubmit) {
-        console.log("Quest ID is missing or submission is disabled.");
-        return;
-      }
       try {
         const response = await fetch(
-          `http://localhost:8080/truefalse?quest_id=${quest_id}`,
+          `http://localhost:8080/${questType}?quest_id=${quest_id}`,
           {
             method: "POST",
             headers: {
@@ -54,10 +52,28 @@ const TrueFalseQuestionTable = ({
             body: JSON.stringify({ answer: answers }),
           }
         );
+
         const data = await response.json();
 
-        setIsValid(data.isValid);
-        setSuppText(data.message);
+        // Set state based on the response
+        let valid = parseInt(data.isValid);
+
+        // Handle the response directly here
+        if (valid === 1) {
+          MySwal.fire({
+            title: "Correct!",
+            text: data.message,
+            icon: "success",
+          });
+          setCanSubmit(false);
+          setIsAnswered(true);
+        } else if (!isExpired && valid === 0) {
+          MySwal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: data.message,
+          });
+        }
       } catch (error) {
         console.log("Error:", error);
       }
@@ -72,27 +88,18 @@ const TrueFalseQuestionTable = ({
     setAnswers(updatedAnswers);
   };
 
+  // Handle timer expiration
   useEffect(() => {
-    if (isValid === 1) {
-      // Correct answer
-      setSuppStyle({ color: "green" });
+    if (isExpired) {
+      MySwal.fire({
+        icon: "error",
+        title: "Time's Up!",
+        text: "Your time has expired :(",
+      });
       setCanSubmit(false);
       setIsAnswered(true);
-    } else if (!isExpired && isValid === 0) {
-      // Incorrect answer, but time remaining
-      setSuppStyle({ color: "red" });
-    } else if (isExpired) {
-      // Timer expired
-      setSuppText("Your time has expired.");
-      setSuppStyle({ color: "red" });
-      setCanSubmit(false);
-      setIsAnswered(true);
-    } else {
-      setSuppText(" ");
     }
-  }, [isValid, isExpired, quest_id]);
-
-  if (!quest_id || !questions.length) return null;
+  }, [isExpired]);
 
   return (
     <form id="tf-form" onSubmit={handleSubmit}>
@@ -154,9 +161,6 @@ const TrueFalseQuestionTable = ({
           SHOW SOLUTION
         </button>
       </div>
-      <p className="support-text" style={suppStyle}>
-        {suppText}
-      </p>
     </form>
   );
 };

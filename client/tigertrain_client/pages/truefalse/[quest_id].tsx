@@ -11,20 +11,21 @@ type Question = {
 };
 
 export default function TrueFalseQuestion() {
+  // Get URL query using dynamic router
   const router = useRouter();
   const { quest_id } = router.query;
 
   const [effectiveId, setEffectiveId] = useState<string>("26");
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [questionPts, setQuestionPts] = useState<number>(3);
   const [timerStatus, setTimerStatus] = useState<boolean>(false);
   const [questionStatus, setQuestionStatus] = useState<boolean>(false);
-  const quest_type = "truefalse";
+  const questType = "truefalse";
+  const questionPts = 3;
 
   useEffect(() => {
     if (typeof quest_id === "string") {
       setEffectiveId(quest_id);
-      fetch(`http://localhost:8080/truefalse?quest_id=${quest_id}`)
+      fetch(`http://localhost:8080/${questType}?quest_id=${quest_id}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);

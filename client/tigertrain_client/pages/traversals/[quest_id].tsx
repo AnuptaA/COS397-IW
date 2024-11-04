@@ -7,6 +7,7 @@ import AnswerBox from "@/components/TraversalAnswer";
 import Timer from "@/components/TraversalTimer";
 
 export default function TraversalQuestion() {
+  // Get URL query using dynamic router
   const router = useRouter();
   const { quest_id } = router.query;
 
@@ -20,12 +21,12 @@ export default function TraversalQuestion() {
   const [questionPts, setQuestionPts] = useState<number>(1);
   const [timerStatus, setTimerStatus] = useState<boolean>(false);
   const [questionStatus, setQuestionStatus] = useState<boolean>(false);
-  const quest_type = "traversals";
+  const questType = "traversals";
 
   useEffect(() => {
     if (typeof quest_id === "string") {
       setEffectiveId(quest_id);
-      fetch(`http://localhost:8080/traversals?quest_id=${quest_id}`)
+      fetch(`http://localhost:8080/${questType}?quest_id=${quest_id}`)
         .then((response) => response.json())
         .then((data) => {
           setQuestionText(data.text);
@@ -59,7 +60,6 @@ export default function TraversalQuestion() {
                 setIsExpired={setTimerStatus}
               />
               <AnswerBox
-                type={quest_type}
                 quest_id={effectiveId}
                 isExpired={timerStatus}
                 setIsAnswered={setQuestionStatus}

@@ -27,9 +27,6 @@ export default function Home() {
     }
   }, [loading]); // Only re-fetch if loading is true
 
-  // Log to observe any unexpected re-renders
-  console.log("Component re-rendered");
-
   return (
     <>
       <meta charSet="UTF-8" />
