@@ -39,8 +39,8 @@ export default function Solution() {
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Solution</title>
+      <NavBar />
       <main>
-        <NavBar />
         <div id="tf-solution-cont">
           <ul>
             {questions.map((question) => (
@@ -64,8 +64,8 @@ export default function Solution() {
             Back to question
           </Link>
         </div>
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

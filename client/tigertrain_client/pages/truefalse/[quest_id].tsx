@@ -43,8 +43,8 @@ export default function TrueFalseQuestion() {
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>True/False Question</title>
+      <NavBar />
       <main>
-        <NavBar />
         <div className="tf-quest-cont">
           <TrueFalseQuestionTable
             quest_id={effectiveId}

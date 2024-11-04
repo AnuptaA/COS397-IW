@@ -44,8 +44,8 @@ export default function TraversalQuestion() {
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Traversal Question</title>
+      <NavBar />
       <main>
-        <NavBar />
         <div className="page-ele-cont">
           <div className="quest-ans-timer-cont">
             <Question

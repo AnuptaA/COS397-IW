@@ -42,8 +42,8 @@ export default function Solution() {
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Solution</title>
+      <NavBar />
       <main>
-        <NavBar />
         <div id="solution-cont">
           <ul>
             <li id="sol-quest-stmt">
@@ -70,8 +70,8 @@ export default function Solution() {
             </li>
           </ul>
         </div>
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }
