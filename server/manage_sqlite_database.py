@@ -511,11 +511,80 @@ def delete_question(question_id):
     conn.close()
     print(f"Question with question_id {question_id} has been deleted.")
 
+def populate_question_resources():
+    # Connect to the SQLite database
+    conn = sqlite3.connect('tigertrain.sqlite')
+    cursor = conn.cursor()
+    
+    # Data to insert
+    resources_data = [
+        ("Minimum Spanning Trees", 
+         "Lecture #17: https://www.cs.princeton.edu/courses/archive/fall24/cos226/lectures/43MinimumSpanningTrees.pdf; " 
+         "Section 4.3 of Algorithms, 4th Edition by Sedgewick and Wayne"),
+        
+        ("Shortest Paths", 
+         "Lecture #18: https://www.cs.princeton.edu/courses/archive/fall24/cos226/lectures/44ShortestPaths.pdf; " 
+         "Section 4.4 of Algorithms, 4th Edition by Sedgewick and Wayne"),
+        
+        ("Maxflows and Mincuts", 
+         "Lecture #20: https://www.cs.princeton.edu/courses/archive/fall24/cos226/lectures/64MaxFlow.pdf; " 
+         "Section 6.4 of Algorithms, 4th Edition by Sedgewick and Wayne"),
+        
+        ("Randomness", 
+         "Lecture #21: https://www.cs.princeton.edu/courses/archive/fall24/cos226/lectures/Randomness.pdf"),
+        
+        ("Graphs and Digraphs II", 
+         "Lecture #16: https://www.cs.princeton.edu/courses/archive/fall24/cos226/lectures/40GraphsDigraphsII.pdf; "
+         "Section 4.1 and 4.2 of Algorithms, 4th Edition by Sedgewick and Wayne")
+    ]
+    
+    # Insert each topic area and its resources into the question_resources table
+    for topic_area, resources in resources_data:
+        cursor.execute('''
+            INSERT INTO question_resources (topic_area, resources) VALUES (?, ?)
+        ''', (topic_area, resources))
+    
+    # Commit the transaction and close the connection
+    conn.commit()
+    conn.close()
+    print("Question resources table populated successfully.")
+
+# Function to print the question_resources table
+def print_question_resources_table():
+    # Connect to the SQLite database
+    conn = sqlite3.connect('tigertrain.sqlite')
+    cursor = conn.cursor()
+    
+    # Execute query to select all data from the question_resources table
+    cursor.execute("SELECT * FROM question_resources")
+    rows = cursor.fetchall()
+    
+    # Print the table header
+    print()
+    print("------------Beginning of question_resources----------------")
+    headers = ["Topic Area", "Resources"]
+    print(" | ".join(headers))
+    print("-" * len(" | ".join(headers)))  # Underline with hyphens
+    
+    # Print each row in the table
+    if rows:
+        for row in rows:
+            print(f"{row[0]} | {row[1]}")
+    else:
+        print("No data in question_resources table.")
+    
+    # Footer
+    print("------------------End of question_resources----------------")
+    print()
+    
+    # Close the connection
+    conn.close()
 
 def main():
     # create_sqlite_database()
     print_question_overviews_table()
     print_question_details_table()
+    print_question_resources_table()
     # print(get_question_type(26))
     
 
@@ -545,6 +614,7 @@ def main():
     # add_question_2_s24_to_sqlite_database()
     # for i in range(25, 28):
     #     decode_question_image(i, get_question_type(i) + '_' + str(i) + '.jpeg')
+    # populate_question_resources()
 
 if __name__ == '__main__':
     main()
