@@ -580,6 +580,25 @@ def print_question_resources_table():
     # Close the connection
     conn.close()
 
+# Function to get resources for a specific topic area
+def get_question_resources(topic_area):
+    # Connect to the SQLite database
+    conn = sqlite3.connect('tigertrain.sqlite')
+    cursor = conn.cursor()
+    
+    # Execute query to select resources for the specified topic area
+    cursor.execute("SELECT resources FROM question_resources WHERE topic_area = ?", (topic_area,))
+    result = cursor.fetchone()
+    
+    # Close the connection
+    conn.close()
+    
+    # Check if any result was found and return appropriately
+    if result:
+        return result[0]  # Return the resources (first column in result)
+    else:
+        return f"No resources found for the topic area '{topic_area}'"
+
 def main():
     # create_sqlite_database()
     print_question_overviews_table()
