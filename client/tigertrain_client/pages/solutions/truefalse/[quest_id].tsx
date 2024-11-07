@@ -9,6 +9,7 @@ type Question = {
   text: string;
   answer: string;
   exp: string;
+  resources: string;
 };
 
 export default function Solution() {
@@ -34,6 +35,42 @@ export default function Solution() {
     }
   }, [quest_id]);
 
+  // used to format resources into a hyperlink, by default they are of
+  // the form: "Lecture #N: {link to lecture N slides}; Section N of
+  // Algorithms, 4th Edition by Sedgewick and Wayne" -> But the section
+  // portion is not required
+  const formatResources = (resources: string): JSX.Element[] => {
+    return resources.split(";").map((resource, index, array) => {
+      // Trim spaces to prevent issues with leading/trailing whitespace
+      const trimmedResource = resource.trim();
+
+      // Match the resource pattern for a lecture (Lecture #X: URL)
+      const lectureMatch = trimmedResource.match(
+        /Lecture #(\d+): (https?:\/\/\S+)/
+      );
+
+      if (lectureMatch) {
+        const [_, lectureNumber, link] = lectureMatch;
+        return (
+          <span key={index}>
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              Lecture #{lectureNumber}
+            </a>
+            {index < array.length - 1 ? " | " : ""}
+          </span>
+        );
+      }
+
+      // For non-lecture resources, simply display the text
+      return (
+        <span key={index}>
+          {trimmedResource}
+          {index < array.length - 1 ? " | " : ""}
+        </span>
+      );
+    });
+  };
+
   return (
     <>
       <meta charSet="UTF-8" />
@@ -49,10 +86,10 @@ export default function Solution() {
                   <strong>{question.id}.</strong> {question.text}
                 </p>
                 <p className="tf-ans">
-                  <strong>{question.answer}</strong> - {question.exp}{" "}
-                  <small>
-                    Related resources: This is a placeholder for the future.
-                  </small>
+                  <strong>{question.answer}</strong> - {question.exp}
+                  <br></br>
+                  <strong>Related resources:</strong>{" "}
+                  {formatResources(question.resources)}
                 </p>
               </li>
             ))}

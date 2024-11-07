@@ -38,6 +38,7 @@ def get_question(quest_id):
     # img = get_question_image(quest_id) if has_img else None
 
     solution = get_question_solution(quest_id)
+    resources = get_question_resources(get_topic_area(quest_id))
 
     quest_details = {}
 
@@ -50,6 +51,7 @@ def get_question(quest_id):
     quest_details['text'] = question_text
     quest_details['solution'] = solution
     quest_details['has_img'] = has_img
+    quest_details['resources'] = resources
 
     # Solution: 0,2,6,8,3,5,1,4,7,9
 
@@ -85,6 +87,9 @@ def get_tf_solution(quest_id):
         question['id'] = id
         question['text'] = get_question_text(id)
         question['answer'] = get_question_solution(id)
+        question['resources'] = get_question_resources(
+                                get_topic_area(id)
+                            )
         if id % 3 == 0:
             question['exp'] = "Are you the strongest because you're Satoru Gojo? Or are you Satoru Gojo because you're the strongest?"
         elif id % 3 == 1:

@@ -16,8 +16,9 @@ export default function Solution() {
   );
   const [questionSol, setQuestionSol] = useState<string>("0,0,0,0,0");
   const [questionExp, setQuestionExp] = useState<string>(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
   );
+  const [questionResources, setQuestionResources] = useState<string>("Loading");
   const questType = "traversals";
 
   useEffect(() => {
@@ -29,6 +30,7 @@ export default function Solution() {
           setQuestionText(data.text);
           setQuestionImg(data.img);
           setQuestionSol(data.solution);
+          setQuestionResources(data.resources);
           //   setQuestionExp(data.exp);          // save this for later
         })
         .catch((error) => {
@@ -36,6 +38,36 @@ export default function Solution() {
         });
     }
   }, [quest_id]);
+
+  // used to format resources into a hyperlink, by default they are of
+  // the form: "Lecture #N: {link to lecture N slides}; Section N of
+  // Algorithms, 4th Edition by Sedgewick and Wayne" -> But the section
+  // portion is not required
+  const formatResources = () => {
+    return questionResources.split("; ").map((resource, index, array) => {
+      const lectureMatch = resource.match(/Lecture #(\d+): (https?:\/\/\S+)/);
+
+      if (lectureMatch) {
+        const [_, lectureNumber, link] = lectureMatch;
+        return (
+          <span key={index}>
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              Lecture #{lectureNumber}
+            </a>
+            {index < array.length - 1 ? " | " : ""}
+          </span>
+        );
+      }
+
+      // Display non-lecture resources (like textbook sections)
+      return (
+        <span key={index}>
+          {resource}
+          {index < array.length - 1 ? " | " : ""}
+        </span>
+      );
+    });
+  };
 
   return (
     <>
@@ -57,11 +89,9 @@ export default function Solution() {
             <li id="sol-sol">
               <strong>Solution</strong>: {questionSol}
             </li>
+            <li id="explanation">Explanation: {questionExp} </li>
             <li id="explanation">
-              {questionExp}{" "}
-              <small>
-                Related resources: This is a placeholder for the future.
-              </small>
+              <strong>Related resources:</strong> {formatResources()}
             </li>
             <li>
               <Link href={`/${questType.toLowerCase()}/${effectiveId}`}>
