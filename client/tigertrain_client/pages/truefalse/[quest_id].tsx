@@ -17,10 +17,10 @@ export default function TrueFalseQuestion() {
 
   const [effectiveId, setEffectiveId] = useState<string>("26");
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [questionPts, setQuestionPts] = useState<number>(3);
   const [timerStatus, setTimerStatus] = useState<boolean>(false);
   const [questionStatus, setQuestionStatus] = useState<boolean>(false);
   const questType = "truefalse";
-  const questionPts = 3;
 
   useEffect(() => {
     if (typeof quest_id === "string") {
@@ -28,9 +28,8 @@ export default function TrueFalseQuestion() {
       fetch(`http://localhost:8080/${questType}?quest_id=${quest_id}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
-          console.log(quest_id);
           setQuestions(data);
+          setQuestionPts(data.length);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);

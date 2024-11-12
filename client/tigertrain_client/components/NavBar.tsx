@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function NavBar() {
   return (
@@ -8,7 +8,7 @@ export default function NavBar() {
           <img id="logo" src="/img/misc/logo.png" alt="logo" />
         </div>
         <li id="nav-options">
-            <Link href="/">DSA Questions</Link>
+          <Link href="/">DSA Questions</Link>
         </li>
         <li id="nav-options">
           <a href="#">Study Plan</a>
