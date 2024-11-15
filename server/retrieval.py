@@ -35,7 +35,7 @@ def get_question(quest_id):
     has_img = True if get_question_has_image(quest_id) == 'Y' else False
 
     img = "/img/question_img/s24_q2.png" if has_img else None
-    # img = get_question_image(quest_id) if has_img else None
+    encoded_img = get_question_image(quest_id) if has_img else None
 
     solution = get_question_solution(quest_id)
     resources = get_question_resources(get_topic_area(quest_id))
@@ -57,6 +57,7 @@ def get_question(quest_id):
 
     # Path to image
     quest_details['img'] = img
+    quest_details['encoded_img'] = str(encoded_img)
 
     return quest_details
 
@@ -101,3 +102,15 @@ def get_tf_solution(quest_id):
     return tf_solution
 
 #-----------------------------------------------------------------------
+
+def get_prompt_str(quest_details, data):
+    prompt_str = "I am currently trying to answer the question \""
+    prompt_str += (quest_details['text'] + "\" and ")
+    prompt_str += "I thought the answer is \""
+    prompt_str += (data['answer'] + "\" ") 
+    prompt_str += "but it turns out that the correct answer is actually \""
+    prompt_str += (quest_details['solution'] + "\"" + "\n\n")
+    prompt_str += "please explain to me the solution and help me understand where I might have gone wrong. "
+    # prompt_str += "Here is the corresponding image (in encoded format) for reference "
+    # prompt_str += quest_details['encoded_img'] + "\n\n"
+    return prompt_str

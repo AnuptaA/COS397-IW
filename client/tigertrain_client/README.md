@@ -38,3 +38,23 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## ChatGPT API Instructions
+(N/B: The API doesn't yet have access to the question image)
+(N/B: The API only works for traversal questions at the moment)
+
+Install the following packages using npm:
+
+- npm install axios
+- npm install @types/node --save-dev
+- npm install dotenv
+- npm install openai
+
+Make a file called ".env.local" in the tigertrain_client/components folder
+
+Paste into the .env.local file the details sent over text
+
+How to hit the API:
+    - Pick your favorite traversal question
+    - Enter a wrong answer then hit 'submit'
+    - Wait a few seconds (if its more than like 5 seconds, something may have gone wrong, check browser logs to confirm)

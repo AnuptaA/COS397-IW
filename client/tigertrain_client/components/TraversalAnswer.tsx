@@ -2,6 +2,7 @@ import router from "next/router";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import axios from "axios";
 
 /**
  * @param quest_id: corresponding question ID
@@ -52,6 +53,7 @@ const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
 
           // Set state based on the response
           let valid = parseInt(data.isValid);
+          let promptStr = data.promptStr;
 
           // Handle the response directly here
           if (valid === 1) {
@@ -63,16 +65,63 @@ const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
             setCanSubmit(false);
             setIsAnswered(true);
           } else if (!isExpired && valid === 0) {
+            console.log("About to enter generateChatGPTExplanation");
+            const explanation = await generateChatGPTExplanation(promptStr);
             MySwal.fire({
               icon: "error",
-              title: "Oops...",
-              text: "Incorrect, please try again.",
+              title: "Not Quite...But here's an explanation",
+              text: explanation,
             });
           }
         } catch (error) {
           console.error("Error:", error);
         }
       }
+    }
+  };
+
+  const generateChatGPTExplanation = async (
+    prompt: string
+  ): Promise<string> => {
+    console.log("Entered generateChatGPTExplanation");
+    const apiKey = process.env.NEXT_PUBLIC_CHATGPT_API_KEY;
+
+    if (!apiKey) {
+      throw new Error("API key is missing");
+    }
+    try {
+      console.log("prompt = ", prompt)
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-4o",
+          messages: [
+            {
+              role: "user", // Role of the user
+              content: prompt, // The content of the user query
+            },
+          ],
+          max_tokens: 2000,
+          temperature: 0.5,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
+      );
+
+      // Check if response structure is valid before accessing data
+      const generatedText = response.data.choices?.[0]?.message?.content?.trim();
+      if (!generatedText) {
+        throw new Error("No text generated");
+      }
+      console.log("Generated Text:", generatedText);
+      return generatedText;
+    } catch (error) {
+      console.error("Error generating text:", error);
+      throw error;
     }
   };
 
