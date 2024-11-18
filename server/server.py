@@ -75,7 +75,7 @@ def traversals():
         if quest_id:
             quest_details = retrieval.get_question(quest_id)
             is_valid = validation.handle_traversals_ans(data['answer'], quest_details['solution'])
-            prompt_str = retrieval.get_prompt_str(quest_details, data)
+            prompt_str = retrieval.get_traversal_prompt_str(quest_details, data)
             return flask.jsonify({'isValid': is_valid, 'promptStr': prompt_str})
         else:
             return flask.jsonify({'error': 'quest_id is required'}), 400

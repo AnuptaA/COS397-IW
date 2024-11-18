@@ -103,7 +103,7 @@ def get_tf_solution(quest_id):
 
 #-----------------------------------------------------------------------
 
-def get_prompt_str(quest_details, data):
+def get_traversal_prompt_str(quest_details, data):
     prompt_str = "I am currently trying to answer the question \""
     prompt_str += (quest_details['text'] + "\" and ")
     prompt_str += "I thought the answer is \""
