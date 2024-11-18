@@ -107,8 +107,25 @@ def get_traversal_prompt_str(quest_details, data):
     prompt_str += "but it turns out that the correct answer is actually \""
     prompt_str += (quest_details['solution'] + "\"" + "\n\n")
     prompt_str += "please explain to me the solution and help me understand where I might have gone wrong. "
-    # prompt_str += "Here is the corresponding image (in encoded format) for reference "
-    # prompt_str += quest_details['encoded_img'] + "\n\n"
+    prompt_str += "Here is a description of the digraph in question: \n\n"
+    prompt_str += """
+    It contains the following Nodes: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.
+
+    It contains the following edges (directed):
+    0 → 2, 0 → 6
+    1 → 5, 1 → 9
+    2 → 8
+    3 → 1, 3 → 4, 3 → 7
+    4 → 0, 4 → 2, 4 → 5, 4 → 6, 4 → 8
+    5 → 2
+    8 → 3, 8 → 5
+    8 → 3, 8 → 5
+    9 → 3, 9 → 7
+
+    """
+
+    prompt_str += "(Please interpret \"Run BFS / DFS\" to mean \"trace through how the algorithm would go rather than actually implement the code for it\")"
+
     return prompt_str
 
 #-----------------------------------------------------------------------

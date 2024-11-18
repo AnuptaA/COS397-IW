@@ -49,6 +49,7 @@ Install the following packages using npm:
 - npm install @types/node --save-dev
 - npm install dotenv
 - npm install openai
+- npm install marked
 
 Make a file called ".env.local" in the tigertrain_client/components folder
 

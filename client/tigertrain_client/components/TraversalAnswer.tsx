@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import axios from "axios";
+import { marked } from "marked";
 
 /**
  * @param quest_id: corresponding question ID
@@ -76,11 +77,14 @@ const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
 
             const explanation = await generateChatGPTExplanation(promptStr);
 
+            // Convert Markdown from ChatGPT response to HTML using `marked`
+            const explanationHTML = marked.parse(explanation);
+
             MySwal.hideLoading();
             MySwal.fire({
               icon: "error",
               title: "Not Quite...But here's an explanation from ChatGPT",
-              text: explanation,
+              html: `<div style="text-align: left;">${explanationHTML}</div>`,
             });
           }
         } catch (error) {
