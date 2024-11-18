@@ -79,7 +79,7 @@ const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
             MySwal.hideLoading();
             MySwal.fire({
               icon: "error",
-              title: "Not Quite...But here's an explanation",
+              title: "Not Quite...But here's an explanation from ChatGPT",
               text: explanation,
             });
           }
