@@ -66,7 +66,17 @@ const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
             setIsAnswered(true);
           } else if (!isExpired && valid === 0) {
             console.log("About to enter generateChatGPTExplanation");
+
+            MySwal.fire({
+              title: "Loading...",
+              html: "Please wait a moment.",
+              allowOutsideClick: false,
+            });
+            MySwal.showLoading();
+
             const explanation = await generateChatGPTExplanation(promptStr);
+
+            MySwal.hideLoading();
             MySwal.fire({
               icon: "error",
               title: "Not Quite...But here's an explanation",
