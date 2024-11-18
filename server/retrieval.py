@@ -100,11 +100,11 @@ def get_tf_solution(quest_id):
 #-----------------------------------------------------------------------
 
 def get_traversal_prompt_str(quest_details, data):
-    prompt_str = "I am currently trying to answer the question \""
+    prompt_str = "Hey, I'm a college student studying Data Strucutres & Algorithms and I am currently trying to answer the question \""
     prompt_str += (quest_details['text'] + "\" and ")
     prompt_str += "I thought the answer is \""
     prompt_str += (data['answer'] + "\" ") 
-    prompt_str += "but it turns out that the correct answer is actually \""
+    prompt_str += "but it turns out that the correct answer given by my professor is actually \""
     prompt_str += (quest_details['solution'] + "\"" + "\n\n")
     prompt_str += "please explain to me the solution and help me understand where I might have gone wrong. "
     prompt_str += "Here is a description of the digraph in question: \n\n"
