@@ -31,7 +31,7 @@ const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (canSubmit) {
-      if (inputData === "") {
+      if (inputData === "" || inputData.split(",").length != 10) {
         MySwal.fire({
           icon: "error",
           title: "Oops..",
@@ -161,7 +161,7 @@ const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
     <div className="ans-box-cont">
       <div className="ans-text-cont">
         <p className="answer-helper-text">
-          Enter your answer as a sequence of comma-separated integers. (ex:
+          Enter your answer as a sequence of 10 comma-separated integers. (ex:
           0,3,1,2,5,6,7,4,9,8)
         </p>
       </div>
