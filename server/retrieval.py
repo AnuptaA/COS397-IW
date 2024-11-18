@@ -91,12 +91,8 @@ def get_tf_solution(quest_id):
         question['resources'] = get_question_resources(
                                 get_topic_area(id)
                             )
-        if id % 3 == 0:
-            question['exp'] = "Are you the strongest because you're Satoru Gojo? Or are you Satoru Gojo because you're the strongest?"
-        elif id % 3 == 1:
-            question['exp'] = "Hi if you're seeing this I'm (Anupta) eating Hoagie Haven right now"
-        else:
-            question['exp'] = "Why are Chipotle portion sizes so small :("
+        question['prompt_str'] = get_tf_prompt_str(id)
+        
         tf_solution.append(question)
     
     return tf_solution
@@ -113,4 +109,13 @@ def get_traversal_prompt_str(quest_details, data):
     prompt_str += "please explain to me the solution and help me understand where I might have gone wrong. "
     # prompt_str += "Here is the corresponding image (in encoded format) for reference "
     # prompt_str += quest_details['encoded_img'] + "\n\n"
+    return prompt_str
+
+#-----------------------------------------------------------------------
+
+def get_tf_prompt_str(quest_id):
+    prompt_str = "Please briefly explain to me why the answer to question \""
+    prompt_str += (get_question_text(quest_id) + "\" is ")
+    prompt_str += (get_question_solution(quest_id))
+    prompt_str += " (Please only use plain text in your explanation, no notation)"
     return prompt_str
