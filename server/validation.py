@@ -20,7 +20,17 @@ def handle_traversals_ans(user_seq, correct_seq):
         correct: Integer value that represents whether the user answer
         is correct.
     '''
-    return 1 if user_seq == correct_seq else 0
+    user_seq_split = user_seq.split(",")
+    correct_seq_split = correct_seq.split(",")
+
+    if len(user_seq_split) != len(correct_seq_split):
+        return 0
+    
+    for i in range(len(user_seq_split)):
+        if user_seq_split[i].strip() != correct_seq_split[i].strip():
+            return 0
+        
+    return 1
 
 #-----------------------------------------------------------------------
 
