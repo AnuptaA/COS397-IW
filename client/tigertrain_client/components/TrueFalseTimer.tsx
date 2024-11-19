@@ -66,6 +66,14 @@ const Timer = ({ points, isAnswered, setIsExpired }: TimerProps) => {
     setStartText("START");
   };
 
+  // Start the timer automatically the page renders for the first time
+  useEffect(() => {
+    if (!isAnswered) {
+      setOn(true);
+      setStartText("PAUSE");
+    }
+  }, []);
+
   // Stop the timer if the correct answer has been submitted
   useEffect(() => {
     if (isAnswered) {
