@@ -63,13 +63,13 @@ const AnswerBox = ({ quest_id, isExpired, setIsAnswered }: AnswerProps) => {
               text: "Great work soldier!",
               icon: "success",
             });
-            setCanSubmit(false);
+            // setCanSubmit(false);
             setIsAnswered(true);
           } else if (!isExpired && valid === 0) {
             console.log("About to enter generateChatGPTExplanation");
 
             MySwal.fire({
-              title: "Loading...",
+              title: "Checking your answer...",
               html: "Please wait a moment.",
               allowOutsideClick: false,
             });
