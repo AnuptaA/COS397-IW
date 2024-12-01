@@ -15,8 +15,20 @@ export default function Home() {
 
   useEffect(() => {
     if (loading) {
-      fetch("http://localhost:8080/")
-        .then((response) => response.json())
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL; // Retrieve the environment variable
+
+      if (!backendUrl) {
+        console.error("NEXT_PUBLIC_BACKEND_URL is not defined.");
+        return;
+      }
+
+      fetch(`${backendUrl}`) // Use the environment variable
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then((data) => {
           setQuestions(data);
           setLoading(false); // Set loading to false once data is loaded

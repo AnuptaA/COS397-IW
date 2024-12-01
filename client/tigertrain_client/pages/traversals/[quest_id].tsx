@@ -26,7 +26,7 @@ export default function TraversalQuestion() {
   useEffect(() => {
     if (typeof quest_id === "string") {
       setEffectiveId(quest_id);
-      fetch(`http://localhost:8080/${questType}?quest_id=${quest_id}`)
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${questType}?quest_id=${quest_id}`)
         .then((response) => response.json())
         .then((data) => {
           setQuestionText(data.text);

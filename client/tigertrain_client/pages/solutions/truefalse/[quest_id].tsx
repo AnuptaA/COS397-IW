@@ -26,7 +26,7 @@ export default function Solution() {
   useEffect(() => {
     if (typeof quest_id === "string") {
       setEffectiveId(quest_id);
-      fetch(`http://localhost:8080/solutions/${questType}?quest_id=${quest_id}`)
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/solutions/${questType}?quest_id=${quest_id}`)
         .then((response) => response.json())
         .then((data) => {
           setQuestions(data);
